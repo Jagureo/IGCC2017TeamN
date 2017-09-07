@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour {
     private GameObject wardrobeSelection;
 
     private GameObject playerChar;
+    private Image tapper;
 
     // Use this for initialization
     void Start()
@@ -43,6 +44,7 @@ public class InventoryManager : MonoBehaviour {
         wardrobeSelection.transform.position = new Vector3(cannotUseBox.transform.position.x, -90, 0);
 
         playerChar = GameObject.Find("Player");
+        tapper = GameObject.Find("TapReaction").GetComponent<Image>();
     }
 	
 	// Update is called once per frame
@@ -134,6 +136,18 @@ public class InventoryManager : MonoBehaviour {
             openWardrobeMenu();
         }
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            tapper.transform.position = Input.mousePosition;
+            tapper.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            tapper.transform.localScale.Set(0.1f, 0.1f, 0.1f);
+            tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(10.0f, 10.0f);
+        }
+        if (tapper.color.a > 0)
+        {
+            tapper.color = new Color(1.0f, 1.0f, 1.0f, tapper.color.a - 0.1f);
+            tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(tapper.transform.GetComponent<RectTransform>().sizeDelta.x + 10.0f, tapper.transform.GetComponent<RectTransform>().sizeDelta.y + 10.0f);
+        }
     }
 
     // Add item to inventory
