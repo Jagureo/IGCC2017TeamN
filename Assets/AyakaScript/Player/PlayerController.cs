@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour {
     public Vector2 SPEED = new Vector2(0.01f, 0.01f);
 
     //壁判定用
-    public int wall_Left = 13;
-    public int wall_Right = 450;
+    public int wall_Left = 200;
+    public int wall_Right = 460;
     public int wall_Bottom = 40;
     public int wall_Top = 230;
 
@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     //アニメーション用フラグ
     public bool click;
+    public bool left;
 
     //Animator
     Animator anim;
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour {
         anim = GetComponent<Animator>();
         //フラグはfalse
         click = false;
+        left = false;
+
     }
 
     // Update is called once per frame
@@ -37,6 +40,8 @@ public class PlayerController : MonoBehaviour {
     {
         //歩くアニメーション(clickフラグがtrueなら動く、falseなら動かない)
         anim.SetBool("run 0", click);
+        anim.SetBool("run 1", left);
+
         ////移動中なら
         //if (click)
         //{
@@ -46,8 +51,8 @@ public class PlayerController : MonoBehaviour {
         //左クリックしたら、そっちの方向に移動 
         if (Input.GetMouseButton(0))
         {
-            //移動開始
-            click = true;
+            ////移動開始
+            //click = true;
 
             //クリックした位置を目標位置に設定
             targetPos = Input.mousePosition;
@@ -55,11 +60,22 @@ public class PlayerController : MonoBehaviour {
             //ワールド座標に変換
             worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
             worldMousePos.z = 10f;
+            
+            if(worldMousePos.x < transform.position.x)
+            {
+                //移動開始
+                left = true;
+            }
+            else
+            {
+                //移動開始
+                click = true;
+            }
 
             //動く
             iTween.MoveTo(this.gameObject, iTween.Hash(
                 "position", worldMousePos,
-                "time", 0.5,
+                "time", 0.5f,
                 "oncomplete", "OnCompleteCallback",
                 "oncompletetarget", this.gameObject,
                 "easeType", "linear"));
@@ -80,9 +96,10 @@ public class PlayerController : MonoBehaviour {
     void OnCompleteCallback()
     {
         //デバック用
-        Debug.Log("animatingStop");
-        //移動フラグをfalse1
+        //Debug.Log("animatingStop");
+        //移動フラグをfalse
         click = false;
+        left = false;
     }
 
 }
