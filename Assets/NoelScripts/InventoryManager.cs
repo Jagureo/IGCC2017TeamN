@@ -20,6 +20,8 @@ public class InventoryManager : MonoBehaviour {
     private GameObject cannotUseBox;
     private GameObject wardrobeSelection;
 
+    private GameObject playerChar;
+
     // Use this for initialization
     void Start()
     {
@@ -39,11 +41,32 @@ public class InventoryManager : MonoBehaviour {
         openWardrobe = 0;
         wardrobeSelection = GameObject.Find("WardrobePopup");
         wardrobeSelection.transform.position = new Vector3(cannotUseBox.transform.position.x, -90, 0);
+
+        playerChar = GameObject.Find("Player");
     }
 	
 	// Update is called once per frame
 	void Update () {
-	    if(triggerRender == true)
+        //
+        //if (playerChar != null)
+        //{
+        //    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
+        //    {
+        //        Debug.Log("Can Use toolbox");
+        //    }
+        //
+        //    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
+        //    {
+        //        Debug.Log("Can Use pillow");
+        //    }
+        //
+        //    if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
+        //    {
+        //        Debug.Log("Can Use cup");
+        //    }
+        //}
+        //
+        if(triggerRender == true)
         {
             rerenderButtons();
             triggerRender = false;
@@ -92,7 +115,7 @@ public class InventoryManager : MonoBehaviour {
                 wardrobeSelection.transform.Translate(0, -Mathf.Sin(((wardrobeSelection.transform.position.y + 90.0f) * 0.2f) * Mathf.Deg2Rad) *0.01f + 4, 0);
             }
         }
-        Debug.Log((wardrobeSelection.transform.position.y + 90.0f) * Mathf.Deg2Rad);
+
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -193,19 +216,34 @@ public class InventoryManager : MonoBehaviour {
     // Check if the item can be used
     bool checkUsable(int slot)
     {
-        if(inventorySlot[slot] > 0)
+        if(inventorySlot[slot] > 0 && playerChar != null)
         {
             switch(inventorySlot[slot])
             {
                 case 1:
                     // Toolbox
-                    return true;
+                    if(playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
+                    {
+                        Debug.Log("Can Use toolbox");
+                        return true;
+                    }
+                    return false;
                 case 2:
+                    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
+                    {
+                        Debug.Log("Can Use pillow");
+                        return true;
+                    }
                     // Pillow
-                    return true;
+                    return false;
                 case 3:
+                    if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
+                    {
+                        Debug.Log("Can Use cup");
+                        return true;
+                    }
                     // Cup
-                    return true;
+                    return false;
             }
         }
         return false;
