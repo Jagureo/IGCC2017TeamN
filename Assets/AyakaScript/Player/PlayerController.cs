@@ -5,15 +5,21 @@ public class PlayerController : MonoBehaviour {
 
     // 速度
     public Vector2 SPEED = new Vector2(0.01f, 0.01f);
+
+    //壁判定用
     public int wall_Left = 13;
     public int wall_Right = 450;
     public int wall_Bottom = 40;
     public int wall_Top = 230;
-    public GameObject gameObj;
-    Vector3 targetPos=Vector3.zero;
-    Vector3 worldMousePos = Vector3.zero;
-   public bool click;
 
+    //移動用ポジション（初期値は(0,0,0)）
+    Vector3 targetPos = Vector3.zero;
+    Vector3 worldMousePos = Vector3.zero;
+
+    //アニメーション用フラグ
+    public bool click;
+
+    //Animator
     Animator anim;
 
 
@@ -22,60 +28,47 @@ public class PlayerController : MonoBehaviour {
     {
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
+        //フラグはfalse
         click = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Hashtable hash = new Hashtable();
-        ////hash.Add("position", worldMousePos);
-        //hash.Add("time", 2.0f);
-        //hash.Add("oncomplete", "OnCompleteCallback");
-        //hash.Add("oncompleteparams", false);
-        //hash.Add("oncompletetarget", this);
+        //歩くアニメーション(clickフラグがtrueなら動く、falseなら動かない)
+        anim.SetBool("run 0", click);
+        ////移動中なら
+        //if (click)
+        //{
+        //    //anim.SetTrigger("run");
+        //}
 
-
-        // 移動処理
-        //Move();
         //左クリックしたら、そっちの方向に移動 
-        if (click)
-        {
-            //ジャンプアニメーションの開始
-            anim.SetTrigger("run");
-        }
-
         if (Input.GetMouseButton(0))
         {
-            if (!click)
-            {
-                click = true;
-            }
-            else if (click)
-            {
-
-            }
-            ////ジャンプアニメーションの開始
-            //anim.SetBool("run 0", true);
-
-            Hashtable hash = new Hashtable();
-            //hash.Add("position", worldMousePos);
-            hash.Add("time", 2.0f);
-            hash.Add("oncomplete", "OnCompleteCallback");
-            hash.Add("oncompleteparams", false);
-            hash.Add("oncompletetarget", gameObject);
+            //移動開始
+            click = true;
 
             //クリックした位置を目標位置に設定
             targetPos = Input.mousePosition;
+
             //ワールド座標に変換
             worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
             worldMousePos.z = 10f;
 
-            hash.Add("position", worldMousePos);
-
             //動く
-            iTween.MoveUpdate(this.gameObject, hash);
+            iTween.MoveTo(this.gameObject, iTween.Hash(
+                "position", worldMousePos,
+                "time", 0.5,
+                "oncomplete", "OnCompleteCallback",
+                "oncompletetarget", this.gameObject,
+                "easeType", "linear"));
         }
+
+            //if(this.transform.position == worldMousePos)
+            //{
+            //    click = false;
+            //}
 
         //壁処理（Mashf.Clamp(制限する座標値, 最小値, 最大値)
         this.transform.position = (new Vector3(Mathf.Clamp(this.transform.position.x, wall_Left, wall_Right),
@@ -83,39 +76,12 @@ public class PlayerController : MonoBehaviour {
            this.transform.position.z));
     }
 
-    // 移動関数
-    void Move()
+    //動くのが終わった後に呼ばれる関数
+    void OnCompleteCallback()
     {
-        // 現在位置をPositionに代入
-        Vector2 Position = transform.position;
-        // 左キーを押し続けていたら
-        if (Input.GetKey("left"))
-        {
-            // 代入したPositionに対して加算減算を行う
-            Position.x -= SPEED.x;
-        }
-        else if (Input.GetKey("right"))
-        { // 右キーを押し続けていたら
-          // 代入したPositionに対して加算減算を行う
-            Position.x += SPEED.x;
-        }
-        else if (Input.GetKey("up"))
-        { // 上キーを押し続けていたら
-          // 代入したPositionに対して加算減算を行う
-            Position.y += SPEED.y;
-        }
-        else if (Input.GetKey("down"))
-        { // 下キーを押し続けていたら
-          // 代入したPositionに対して加算減算を行う
-            Position.y -= SPEED.y;
-        }
-        // 現在の位置に加算減算を行ったPositionを代入する
-        transform.position = Position;
-    }
-
-    void OnCompleteCallback(bool nextClick)
-    {
-        Debug.Log("nextClick");
+        //デバック用
+        Debug.Log("animatingStop");
+        //移動フラグをfalse1
         click = false;
     }
 
