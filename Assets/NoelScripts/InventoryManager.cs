@@ -22,9 +22,11 @@ public class InventoryManager : MonoBehaviour {
 
     private GameObject playerChar;
     private Image tapper;
+    private int tapDelay;
     
     private GameObject playerResponse;
     private int imageTimer;
+    private Vector3 lastClickedPos;
 
     // Use this for initialization
     void Start()
@@ -50,6 +52,7 @@ public class InventoryManager : MonoBehaviour {
         tapper = GameObject.Find("TapReaction").GetComponent<Image>();
         playerResponse = GameObject.Find("PlayerReaction");
         imageTimer = -1;
+        tapDelay = 1;
     }
 	
 	// Update is called once per frame
@@ -145,12 +148,23 @@ public class InventoryManager : MonoBehaviour {
             triggerPlayerQuestionMark();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if(tapDelay == 1)
         {
-            tapper.transform.position = Input.mousePosition;
+            tapper.transform.position = lastClickedPos;
             tapper.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             tapper.transform.localScale.Set(0.1f, 0.1f, 0.1f);
             tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(10.0f, 10.0f);
+            tapDelay = 0;
+        }
+        else if(tapDelay > 1)
+        {
+            tapDelay--;
+        }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastClickedPos = Input.mousePosition;
+            tapDelay = 10;
         }
         if (tapper.color.a > 0)
         {
