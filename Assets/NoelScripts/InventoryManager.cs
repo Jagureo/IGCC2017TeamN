@@ -21,6 +21,12 @@ public class InventoryManager : MonoBehaviour {
     private GameObject wardrobeSelection;
 
     private GameObject playerChar;
+    private Image tapper;
+    private int tapDelay;
+    
+    private GameObject playerResponse;
+    private int imageTimer;
+    private Vector3 lastClickedPos;
 
     // Use this for initialization
     void Start()
@@ -43,6 +49,10 @@ public class InventoryManager : MonoBehaviour {
         wardrobeSelection.transform.position = new Vector3(cannotUseBox.transform.position.x, -90, 0);
 
         playerChar = GameObject.Find("Player");
+        tapper = GameObject.Find("TapReaction").GetComponent<Image>();
+        playerResponse = GameObject.Find("PlayerReaction");
+        imageTimer = -1;
+        tapDelay = 1;
     }
 	
 	// Update is called once per frame
@@ -133,7 +143,50 @@ public class InventoryManager : MonoBehaviour {
         {
             openWardrobeMenu();
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            triggerPlayerQuestionMark();
+        }
 
+        if(tapDelay == 1)
+        {
+            tapper.transform.position = lastClickedPos;
+            tapper.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            tapper.transform.localScale.Set(0.1f, 0.1f, 0.1f);
+            tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(10.0f, 10.0f);
+            tapDelay = 0;
+        }
+        else if(tapDelay > 1)
+        {
+            tapDelay--;
+        }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastClickedPos = Input.mousePosition;
+            tapDelay = 10;
+        }
+        if (tapper.color.a > 0)
+        {
+            tapper.color = new Color(1.0f, 1.0f, 1.0f, tapper.color.a - 0.1f);
+            tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(tapper.transform.GetComponent<RectTransform>().sizeDelta.x + 10.0f, tapper.transform.GetComponent<RectTransform>().sizeDelta.y + 10.0f);
+        }
+
+        if(imageTimer > 0)
+        {
+            imageTimer--;
+            if (playerResponse.GetComponent<SpriteRenderer>().color.a < 1.0f)
+            {
+                playerResponse.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, playerResponse.GetComponent<SpriteRenderer>().color.a + 0.1f);
+            }
+        }
+        else
+        {
+            if (playerResponse.GetComponent<SpriteRenderer>().color.a > 0.0f)
+            {
+                playerResponse.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, playerResponse.GetComponent<SpriteRenderer>().color.a - 0.1f);
+            }
+        }
     }
 
     // Add item to inventory
@@ -285,4 +338,10 @@ public class InventoryManager : MonoBehaviour {
             }
         }
     }
+
+    public void triggerPlayerQuestionMark()
+    {
+        imageTimer = 180;
+    }
+
 }
