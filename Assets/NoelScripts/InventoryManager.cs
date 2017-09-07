@@ -22,6 +22,9 @@ public class InventoryManager : MonoBehaviour {
 
     private GameObject playerChar;
     private Image tapper;
+    
+    private GameObject playerResponse;
+    private int imageTimer;
 
     // Use this for initialization
     void Start()
@@ -45,6 +48,8 @@ public class InventoryManager : MonoBehaviour {
 
         playerChar = GameObject.Find("Player");
         tapper = GameObject.Find("TapReaction").GetComponent<Image>();
+        playerResponse = GameObject.Find("PlayerReaction");
+        imageTimer = -1;
     }
 	
 	// Update is called once per frame
@@ -135,6 +140,10 @@ public class InventoryManager : MonoBehaviour {
         {
             openWardrobeMenu();
         }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            triggerPlayerQuestionMark();
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -147,6 +156,22 @@ public class InventoryManager : MonoBehaviour {
         {
             tapper.color = new Color(1.0f, 1.0f, 1.0f, tapper.color.a - 0.1f);
             tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(tapper.transform.GetComponent<RectTransform>().sizeDelta.x + 10.0f, tapper.transform.GetComponent<RectTransform>().sizeDelta.y + 10.0f);
+        }
+
+        if(imageTimer > 0)
+        {
+            imageTimer--;
+            if (playerResponse.GetComponent<SpriteRenderer>().color.a < 1.0f)
+            {
+                playerResponse.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, playerResponse.GetComponent<SpriteRenderer>().color.a + 0.1f);
+            }
+        }
+        else
+        {
+            if (playerResponse.GetComponent<SpriteRenderer>().color.a > 0.0f)
+            {
+                playerResponse.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, playerResponse.GetComponent<SpriteRenderer>().color.a - 0.1f);
+            }
         }
     }
 
@@ -299,4 +324,10 @@ public class InventoryManager : MonoBehaviour {
             }
         }
     }
+
+    public void triggerPlayerQuestionMark()
+    {
+        imageTimer = 180;
+    }
+
 }
