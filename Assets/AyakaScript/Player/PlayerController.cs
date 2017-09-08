@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour {
     public int wall_Bottom = 40;
     public int wall_Top = 230;
 
+    //性別(0:Boy、1:Girl）
+    public int gender;
+
     //移動用ポジション（初期値は(0,0,0)）
     Vector3 targetPos = Vector3.zero;
     Vector3 worldMousePos = Vector3.zero;
@@ -33,6 +36,11 @@ public class PlayerController : MonoBehaviour {
         click = false;
         left = false;
 
+        //デバック用（性別を男性にした）
+        gender = 0;
+
+        //性別をセット
+        anim.SetInteger("gender", gender);
     }
 
     // Update is called once per frame
@@ -61,11 +69,14 @@ public class PlayerController : MonoBehaviour {
             worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
             worldMousePos.z = 10f;
             
+            //マウスの座標と現在の座標から、どの方向に動いているか確認
+            //Left
             if(worldMousePos.x < transform.position.x)
             {
                 //移動開始
                 left = true;
             }
+            //Right
             else
             {
                 //移動開始
