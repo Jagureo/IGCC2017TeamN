@@ -12,7 +12,7 @@ public class DialogWindow : MonoBehaviour {
 
   private void Awake() {
     scrollRect = GetComponent<ScrollRect>();
-  }
+    }
 
   public void AddDialog(string str) {
     var node = Instantiate(dialogNode);
