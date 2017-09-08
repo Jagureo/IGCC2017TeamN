@@ -12,15 +12,15 @@ public class DialogWindow : MonoBehaviour {
 
   private void Awake() {
     scrollRect = GetComponent<ScrollRect>();
-  }
+    }
 
   public void AddDialog(string str) {
     var node = Instantiate(dialogNode);
-    var text = node.GetComponentInChildren<Text>();
-    var transform = node.GetComponent<RectTransform>();
+    var translator = node.GetComponentInChildren<TextTranslator>();
+    var nodeTransform = node.GetComponent<RectTransform>();
 
-    text.text = str;
-    transform.SetParent(scrollRect.content.transform, false);
+    translator.Key = str;
+    nodeTransform.SetParent(scrollRect.content.transform, false);
     Canvas.ForceUpdateCanvases();
     scrollRect.verticalNormalizedPosition = 0.0f;
     Canvas.ForceUpdateCanvases();

@@ -127,6 +127,14 @@ public class InventoryManager : MonoBehaviour {
         }
 
 
+#if UNITY_ANDROID
+        if(Input.touches.Length == 3)
+        {
+            addItem(Random.Range(1, 3));
+            openWardrobeMenu();
+            triggerPlayerQuestionMark();
+        }
+#else
         if (Input.GetKeyDown(KeyCode.A))
         {
             addItem(1);
@@ -147,6 +155,7 @@ public class InventoryManager : MonoBehaviour {
         {
             triggerPlayerQuestionMark();
         }
+#endif
 
         if(tapDelay == 1)
         {
