@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Language id="en_US">
-<Text id="player_awakening">Good Morning Sir/Madam.
+<Text id="honorifics_for_men">Sir</Text>
+<Text id="honorifics_for_women">Madam</Text>
+<Text id="player_awakening">Good Morning %(honorifics).
 It is currently 22 degrees celsius outside with a chance of light showers. If you look in your closet there will be a suitable outfit for today.
 There have been 3 local car accidents overnight. Please drive carefully.
 My research shows that assault rates have risen 2 percent in the past week.
