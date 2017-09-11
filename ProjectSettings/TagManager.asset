@@ -5,7 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - sidetable
-  - New Tag
+  - Bed
+  - desk
+  - toolbox
+  - chest
+  - door
   layers:
   - Default
   - TransparentFX
