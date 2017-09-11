@@ -35,7 +35,20 @@ public class TextTranslator : MonoBehaviour {
   }
 
   private void Translate() {
-    target.text = LocalizationManager.Instance.GetText(key);
+    var text = LocalizationManager.Instance.GetText(key);
+
+    var gender = GameSettingManager.Instance.Gender;
+    string honorifics_key;
+    switch (gender) {
+    case Gender.Male: honorifics_key = "honorifics_for_men"; break;
+    case Gender.Female: honorifics_key = "honorifics_for_women"; break;
+    default: honorifics_key = "honorifics_for_other"; break;
+    }
+
+    var honorifics = LocalizationManager.Instance.GetText(honorifics_key);
+    var output = text.Replace("%(honorifics)", honorifics);
+
+    target.text = output;
   }
 
 }

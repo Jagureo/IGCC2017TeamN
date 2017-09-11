@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Language id="ja_JP">
-<Text id="player_awakening">Sir/Madam、おはようございます。
+<Text id="player_awakening">%(honorifics)、おはようございます。
 現在の気温は摂氏22度、にわか雨が降るかもしれません。
 最適な着替えをクローゼットに用意してあります。
 
 昨晩は近所で3回の交通事故が発生しました。慎重に運転してください。
 私の研究によると、通り魔に襲われる確率はここ1週間で2%も上昇しました。
 外は大変危険な世界です。</Text>
-<Text id="player_open_the_door">家を出る必要はありません。</Text>
-<Text id="player_open_the_door_again">私の優秀な回路は、あなたを安全な場所にとどめることを決定しました。</Text>
+<Text id="player_open_the_door">本当に家を出る必要がありますか？</Text>
+<Text id="player_open_the_door_again">安全な場所にとどまってください。</Text>
 </Language>
