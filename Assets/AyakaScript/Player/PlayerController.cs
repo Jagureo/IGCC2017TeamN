@@ -4,12 +4,13 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     //取得した際の画像変更用
+    SpriteRenderer FloorSpriteRenderer;
     SpriteRenderer BedSpriteRenderer;
     SpriteRenderer SidetableSpriteRenderer;
     SpriteRenderer DeskSpriteRenderer;
     SpriteRenderer ChestSpriteRenderer;
     SpriteRenderer ToolboxSpriteRenderer;
-
+    SpriteRenderer DoorSpriteRenderer;
 
     public Sprite BedPut;
     public Sprite SidetablePut;
@@ -18,12 +19,41 @@ public class PlayerController : MonoBehaviour
     public Sprite Chest2Put;
     public Sprite ToolboxPut;
     public Sprite Toolbox2Put;
+    public Sprite DoorPut;
 
+    public Sprite FloorBoy;
+    public Sprite BedBoy;
+    public Sprite SidetableBoy;
+    public Sprite DeskBoy;
+    public Sprite ChestBoy;
+    public Sprite ToolboxBoy;
+    public Sprite DoorBoy;
+
+    public Sprite FloorLady;
+    public Sprite BedLady;
+    public Sprite SidetableLady;
+    public Sprite DeskLady;
+    public Sprite ChestLady;
+    public Sprite ToolboxLady;
+    public Sprite DoorLady;
+
+    public Sprite BedPutLady;
+    public Sprite SidetablePutLady;
+    public Sprite DeskPutLady;
+    public Sprite ChestPutLady;
+    public Sprite Chest2PutLady;
+    public Sprite ToolboxPutLady;
+    public Sprite Toolbox2PutLady;
+    public Sprite DoorPutLady;
+
+
+    GameObject[] floors;
     GameObject[] beds;
     GameObject[] sidetables;
     GameObject[] desks;
     GameObject[] chests;
     GameObject[] toolboxs;
+    GameObject[] doors;
 
     bool chestGet = false;
     bool toolboxGet = false;
@@ -62,22 +92,8 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //------------------------------------------------------------------------//
-        // 取得した際の画像変更のために、それぞれのオブジェクトを取得しておく     //
-        //------------------------------------------------------------------------//
-        
-        beds = GameObject.FindGameObjectsWithTag("Bed");
-        sidetables = GameObject.FindGameObjectsWithTag("sidetable");
-        desks = GameObject.FindGameObjectsWithTag("desk");
-        chests = GameObject.FindGameObjectsWithTag("chest");
-        toolboxs = GameObject.FindGameObjectsWithTag("toolbox");
-
-        // このobjectのSpriteRendererを取得
-        BedSpriteRenderer = beds[0].GetComponent<SpriteRenderer>();
-        SidetableSpriteRenderer = sidetables[0].GetComponent<SpriteRenderer>();
-        DeskSpriteRenderer = desks[0].GetComponent<SpriteRenderer>();
-        ChestSpriteRenderer = chests[0].GetComponent<SpriteRenderer>();
-        ToolboxSpriteRenderer = toolboxs[0].GetComponent<SpriteRenderer>();
+        //画像変更用の各種設定関数
+        SpriteInitialize();
 
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
@@ -90,6 +106,8 @@ public class PlayerController : MonoBehaviour
 
         //性別をセット
         anim.SetInteger("gender", gender);
+        //画像を性別に合わせる
+        SpriteGender();
     }
 
     // Update is called once per frame
@@ -209,29 +227,66 @@ public class PlayerController : MonoBehaviour
                 if (obj.tag == tagName)
                 {
                     Debug.Log("取得");
-                    switch(tagName)
+                    anim.SetTrigger("reach");
+                    if (gender == 0)
                     {
-                        case "Bed":
-                            BedSpriteRenderer.sprite = BedPut;
-                            break;
-                        case "sidetable":
-                            SidetableSpriteRenderer.sprite = SidetablePut;
-                            break;
-                        case "desk":
-                            DeskSpriteRenderer.sprite = DeskPut;
-                            break;
-                        case "chest":
-                            ChestSpriteRenderer.sprite = ChestPut;
-                            chestGet = true;
-                            break;
-                        case "toolbox":
-                            ToolboxSpriteRenderer.sprite = ToolboxPut;
-                            toolboxGet = true;
-                            break;
-                        
-
+                        switch (tagName)
+                        {
+                            case "Bed":
+                                BedSpriteRenderer.sprite = BedPut;
+                                break;
+                            case "sidetable":
+                                SidetableSpriteRenderer.sprite = SidetablePut;
+                                break;
+                            case "desk":
+                                DeskSpriteRenderer.sprite = DeskPut;
+                                break;
+                            case "chest":
+                                ChestSpriteRenderer.sprite = ChestPut;
+                                chestGet = true;
+                                break;
+                            case "toolbox":
+                                ToolboxSpriteRenderer.sprite = ToolboxPut;
+                                toolboxGet = true;
+                                break;
+                            case "door":
+                                doors[0].transform.position = new Vector3(446f, doors[0].transform.position.y);
+                                DoorSpriteRenderer.sprite = DoorPut;
+                                break;
+                        }
+                     tagName = null;
                     }
-                    tagName = null;
+
+                    else if (gender == 1)
+                    {
+                        switch (tagName)
+                        {
+                            case "Bed":
+                                BedSpriteRenderer.sprite = BedPutLady;
+                                break;
+                            case "sidetable":
+                                SidetableSpriteRenderer.sprite = SidetablePutLady;
+                                break;
+                            case "desk":
+                                DeskSpriteRenderer.sprite = DeskPutLady;
+                                break;
+                            case "chest":
+                                //chests[0].transform.position = new Vector3(chests[0].transform.position.x, 254f);
+                                ChestSpriteRenderer.sprite = ChestPutLady;
+                                chestGet = true;
+                                break;
+                            case "toolbox":
+                                ToolboxSpriteRenderer.sprite = ToolboxPutLady;
+                                toolboxGet = true;
+                                break;
+                            case "door":
+                                doors[0].transform.position = new Vector3(446f, doors[0].transform.position.y);
+                                DoorSpriteRenderer.sprite = DoorPutLady;
+                                break;
+                        }
+                        tagName = null;
+                    }
+
                 }
             }
             else
@@ -284,23 +339,98 @@ public class PlayerController : MonoBehaviour
         return result;
     }
 
+
+    void SpriteInitialize()
+    {
+        //------------------------------------------------------------------------//
+        // 取得した際の画像変更のために、それぞれのオブジェクトを取得しておく     //
+        //------------------------------------------------------------------------//
+
+        floors = GameObject.FindGameObjectsWithTag("floor");
+        beds = GameObject.FindGameObjectsWithTag("Bed");
+        sidetables = GameObject.FindGameObjectsWithTag("sidetable");
+        desks = GameObject.FindGameObjectsWithTag("desk");
+        chests = GameObject.FindGameObjectsWithTag("chest");
+        toolboxs = GameObject.FindGameObjectsWithTag("toolbox");
+        doors = GameObject.FindGameObjectsWithTag("door");
+
+        // このobjectのSpriteRendererを取得
+        FloorSpriteRenderer = floors[0].GetComponent<SpriteRenderer>();
+        BedSpriteRenderer = beds[0].GetComponent<SpriteRenderer>();
+        SidetableSpriteRenderer = sidetables[0].GetComponent<SpriteRenderer>();
+        DeskSpriteRenderer = desks[0].GetComponent<SpriteRenderer>();
+        ChestSpriteRenderer = chests[0].GetComponent<SpriteRenderer>();
+        ToolboxSpriteRenderer = toolboxs[0].GetComponent<SpriteRenderer>();
+        DoorSpriteRenderer = doors[0].GetComponent<SpriteRenderer>();
+
+    }
+
+
+    //  性別によって画像を変える
+    void SpriteGender()
+    {
+        switch (gender)
+        {
+            //Boy
+            case 0:
+                FloorSpriteRenderer.sprite = FloorBoy;
+                BedSpriteRenderer.sprite = BedBoy;
+                SidetableSpriteRenderer.sprite = SidetableBoy;
+                DeskSpriteRenderer.sprite = DeskBoy;
+                ChestSpriteRenderer.sprite = ChestBoy;
+                ToolboxSpriteRenderer.sprite = ToolboxBoy;
+                DoorSpriteRenderer.sprite = DoorBoy;
+                break;
+
+            //Girl
+            case 1:
+                FloorSpriteRenderer.sprite = FloorLady;
+                BedSpriteRenderer.sprite = BedLady;
+                SidetableSpriteRenderer.sprite = SidetableLady;
+                DeskSpriteRenderer.sprite = DeskLady;
+                ChestSpriteRenderer.sprite = ChestLady;
+                ToolboxSpriteRenderer.sprite = ToolboxLady;
+                DoorSpriteRenderer.sprite = DoorLady;
+
+                break;
+        }
+
+
+    }
+
+    //箪笥のアニメーション
     void ChestChangeSprite()
     {
         chestTime++;
         if(chestTime >= 30)
         {
-            ChestSpriteRenderer.sprite = Chest2Put;
+            if (gender == 0)
+            {
+                ChestSpriteRenderer.sprite = Chest2Put;
+            }
+            else if (gender == 1)
+            {
+                ChestSpriteRenderer.sprite = Chest2PutLady;
+            }
+
         }
     }
 
+    //ツールボックスのアニメーション
     void ToolboxChangeSprite()
     {
         toolboxTime++;
         if (toolboxTime >= 30)
         {
-            ToolboxSpriteRenderer.sprite = Toolbox2Put;
+            if (gender == 0)
+            {
+                ToolboxSpriteRenderer.sprite = Toolbox2Put;
+            }
+            else if(gender == 1)
+            {
+                ToolboxSpriteRenderer.sprite = Toolbox2PutLady;
+            }
+
         }
     }
-
-
 }

@@ -514,7 +514,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273578116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 461.71088, y: 157, z: 0}
+  m_LocalPosition: {x: 459.42, y: 157.45, z: 0}
   m_LocalScale: {x: 37.305317, y: 25.15144, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2347,8 +2347,8 @@ GameObject:
   - 4: {fileID: 1281874528}
   - 212: {fileID: 1281874527}
   m_Layer: 0
-  m_Name: room_men
-  m_TagString: Untagged
+  m_Name: floor
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3281,6 +3281,29 @@ MonoBehaviour:
   Chest2Put: {fileID: 21300000, guid: 099771260658dac4fa3b6ef298f4cb78, type: 3}
   ToolboxPut: {fileID: 21300000, guid: d378b62e7c2707142aacf456f176e753, type: 3}
   Toolbox2Put: {fileID: 21300000, guid: bd640ed41905cdf448bf9edc3d9f3857, type: 3}
+  DoorPut: {fileID: 21300000, guid: 2a4c809fa78678c459e7e2b5a30c853f, type: 3}
+  FloorBoy: {fileID: 21300000, guid: 08f60dc1679cf8744b4efd125b130b72, type: 3}
+  BedBoy: {fileID: 21300000, guid: 7c755dd32b3b9d4469365d9806c157fa, type: 3}
+  SidetableBoy: {fileID: 21300000, guid: faf8def03155c4a41954aae49c5a732a, type: 3}
+  DeskBoy: {fileID: 21300000, guid: 678754d2597c5b04498cab99616f9073, type: 3}
+  ChestBoy: {fileID: 21300000, guid: 26c8ec1f197515c428cd3c265b1616b9, type: 3}
+  ToolboxBoy: {fileID: 21300000, guid: ef50863797b8edd4ea2e31bcdc8b7f34, type: 3}
+  DoorBoy: {fileID: 21300000, guid: b6a0ff24b37d37d4dbb30822305a0e84, type: 3}
+  FloorLady: {fileID: 21300000, guid: 83554140433097c42b356d65edc17bab, type: 3}
+  BedLady: {fileID: 21300000, guid: 34dd492d1e4c3bc43bae9616d78165b6, type: 3}
+  SidetableLady: {fileID: 21300000, guid: 9286c03b8c71e59479dcf43905d43c23, type: 3}
+  DeskLady: {fileID: 21300000, guid: 264f8bc8b50c6f24eb413cc3047837c5, type: 3}
+  ChestLady: {fileID: 21300000, guid: dce13a7645fb2e04d9366a4ca80c3f19, type: 3}
+  ToolboxLady: {fileID: 21300000, guid: a678d58782632a340b1a6bbc103d7f45, type: 3}
+  DoorLady: {fileID: 21300000, guid: 4595610da2918b44aa11e3dc90ee949c, type: 3}
+  BedPutLady: {fileID: 21300000, guid: 613b6ee3a1e2507409b679b81b5407c2, type: 3}
+  SidetablePutLady: {fileID: 21300000, guid: 8356f897fdd0cf14e9207431ea941d47, type: 3}
+  DeskPutLady: {fileID: 21300000, guid: 2e846d69e11e78746a678669a4505205, type: 3}
+  ChestPutLady: {fileID: 21300000, guid: 56b90141bdc34114383ffff66aa4e4e8, type: 3}
+  Chest2PutLady: {fileID: 21300000, guid: 3bbcc823fd644974b90b89d6d7508a8f, type: 3}
+  ToolboxPutLady: {fileID: 21300000, guid: a6ab65ae1de1e4345ad72a466c197824, type: 3}
+  Toolbox2PutLady: {fileID: 21300000, guid: a2703cf973248bc4b887b3b3f5c8c77a, type: 3}
+  DoorPutLady: {fileID: 21300000, guid: c23830712fac0654384700cf2f4e1974, type: 3}
   SPEED: {x: 0.01, y: 0.01}
   wall_Left: 205
   wall_Right: 450

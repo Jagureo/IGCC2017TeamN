@@ -10,6 +10,7 @@ TagManager:
   - toolbox
   - chest
   - door
+  - floor
   layers:
   - Default
   - TransparentFX
