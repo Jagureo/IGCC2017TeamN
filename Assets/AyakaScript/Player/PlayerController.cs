@@ -266,9 +266,11 @@ public class PlayerController : MonoBehaviour
                         {
                             case "Bed":
                                 BedSpriteRenderer.sprite = BedPutLady;
+                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(2);
                                 break;
                             case "sidetable":
                                 SidetableSpriteRenderer.sprite = SidetablePutLady;
+                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 break;
                             case "desk":
                                 DeskSpriteRenderer.sprite = DeskPutLady;
@@ -281,6 +283,7 @@ public class PlayerController : MonoBehaviour
                             case "toolbox":
                                 ToolboxSpriteRenderer.sprite = ToolboxPutLady;
                                 toolboxGet = true;
+                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
                                 doors[0].transform.position = new Vector3(446f, doors[0].transform.position.y);

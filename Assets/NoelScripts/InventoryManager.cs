@@ -176,9 +176,13 @@ public class InventoryManager : MonoBehaviour {
         {
             triggerPlayerQuestionMark();
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log(GameObject.Find("Player").transform.position);
+        }
 #endif
 
-        if(tapDelay == 1)
+        if (tapDelay == 1)
         {
             tapper.transform.position = lastClickedPos;
             tapper.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -317,14 +321,14 @@ public class InventoryManager : MonoBehaviour {
             {
                 case 1:
                     // Toolbox
-                    if(playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
+                    if(playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                     {
                         Debug.Log("Can Use toolbox");
                         return true;
                     }
                     return false;
                 case 2:
-                    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
+                    if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                     {
                         Debug.Log("Can Use pillow");
                         return true;
@@ -332,7 +336,7 @@ public class InventoryManager : MonoBehaviour {
                     // Pillow
                     return false;
                 case 3:
-                    if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
+                    if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                     {
                         Debug.Log("Can Use cup");
                         return true;
@@ -351,14 +355,14 @@ public class InventoryManager : MonoBehaviour {
         {
             case 1:
                 // Toolbox
-                if (playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
+                if (playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                 {
                     Debug.Log("Can Use toolbox");
                     return true;
                 }
                 return false;
             case 2:
-                if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
+                if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                 {
                     Debug.Log("Can Use pillow");
                     return true;
@@ -366,7 +370,7 @@ public class InventoryManager : MonoBehaviour {
                 // Pillow
                 return false;
             case 3:
-                if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
+                if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                 {
                     Debug.Log("Can Use cup");
                     return true;
