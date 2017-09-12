@@ -11,6 +11,7 @@ public class InventoryManager : MonoBehaviour {
     private int openWardrobe;
     private bool lockDown;
     private GameObject renderButton;
+    private GameObject invbackground;
 
     //public Sprite slotEmpty;
     //public Sprite slotTools;
@@ -81,11 +82,19 @@ public class InventoryManager : MonoBehaviour {
         slotPillowBoyDragging = GameObject.Find("SlotPillowBoyDragging").GetComponent<Image>().sprite;
         slotCup = GameObject.Find("SlotMug").GetComponent<Image>().sprite;
         slotCupDragging = GameObject.Find("SlotMugDragging").GetComponent<Image>().sprite;
+        invbackground = GameObject.Find("area");
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 1)
+        {
+            invbackground.GetComponent<Image>().sprite = GameObject.Find("area2").GetComponent<Image>().sprite;
+        }
+        else
+        {
+            invbackground.GetComponent<Image>().sprite = GameObject.Find("area3").GetComponent<Image>().sprite;
+        }
         if(Input.GetMouseButtonDown(0))
         {
             if (Input.mousePosition.x > 0.84 * Screen.width)

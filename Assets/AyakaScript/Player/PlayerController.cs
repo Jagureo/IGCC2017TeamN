@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         left = false;
 
         //デバック用（性別を男性にした）
-        gender = 1;
+        gender = 0;
 
         //性別をセット
         anim.SetInteger("gender", gender);
