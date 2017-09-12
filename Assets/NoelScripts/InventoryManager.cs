@@ -211,6 +211,10 @@ public class InventoryManager : MonoBehaviour {
         {
             Debug.Log(GameObject.Find("Player").transform.position);
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("DoorLock");
+        }
 #endif
 
         if (tapDelay == 1)
