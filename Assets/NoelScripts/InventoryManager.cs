@@ -527,7 +527,7 @@ public class InventoryManager : MonoBehaviour {
                 shortestDistance = distance;
             }
         }
-
+        cannotUsePop = 2;
         if (inventorySlot[shortestSlot - 1] == 0)
         {
             GameObject.Find("SlotTemp").transform.position = new Vector3(9999,9999,9999);
@@ -560,6 +560,19 @@ public class InventoryManager : MonoBehaviour {
         if(id == 3 && gotMug == true)
         {
             return;
+        }
+
+        switch(id)
+        {
+            case 1:
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPickup");
+                break;
+            case 2:
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound1");
+                break;
+            case 3:
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugDrop");
+                break;
         }
 
         addItem(id);
