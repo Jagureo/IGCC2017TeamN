@@ -78,8 +78,11 @@ public class PlayerController : MonoBehaviour
     Vector3 worldMousePos = Vector3.zero;
 
     //アニメーション用フラグ
-    public bool click;
+    public bool right;
     public bool left;
+    public bool up;
+    public bool down;
+
 
     //Animator
     Animator anim;
@@ -98,7 +101,7 @@ public class PlayerController : MonoBehaviour
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
         //フラグはfalse
-        click = false;
+        right = false;
         left = false;
 
         //デバック用（性別を男性にした）
@@ -113,12 +116,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //歩くアニメーション(clickフラグがtrueなら動く、falseなら動かない)
-        anim.SetBool("run 0", click);
+        //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
+        anim.SetBool("run 0", right);
         anim.SetBool("run 1", left);
+        anim.SetBool("run 2", up);
+        anim.SetBool("run 3", down);
+
 
         ////移動中なら
-        //if (click)
+        //if (right)
         //{
         //    //anim.SetTrigger("run");
         //}
@@ -129,7 +135,7 @@ public class PlayerController : MonoBehaviour
             if (!collisionFlug)
             {
                 ////移動開始
-                //click = true;
+                //right = true;
                 //クリックした位置を目標位置に設定
                 targetPos = Input.mousePosition;
 
@@ -137,19 +143,24 @@ public class PlayerController : MonoBehaviour
                 worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
                 worldMousePos.z = 10f;
 
+                // 自分とターゲットとなる相手との方向を求める
+                Vector3 direction = (this.transform.position - worldMousePos).normalized;
+
+                MoveAngle(direction);
+
                 //マウスの座標と現在の座標から、どの方向に動いているか確認
-                //Left
-                if (worldMousePos.x < transform.position.x)
-                {
-                    //移動開始
-                    left = true;
-                }
-                //Right
-                else
-                {
-                    //移動開始
-                    click = true;
-                }
+                ////Left
+                //if (worldMousePos.x < transform.position.x)
+                //{
+                //    //移動開始
+                //    left = true;
+                //}
+                ////Right
+                //else
+                //{
+                //    //移動開始
+                //    right = true;
+                //}
 
                 //動く
                 iTween.MoveTo(this.gameObject, iTween.Hash(
@@ -163,7 +174,7 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetMouseButton(0))
         //{
         //    //クリックして、オブジェクトがあったら
-        //    GameObject obj = getClickObject();
+        //    GameObject obj = getrightObject();
         //    if (obj != null)
         //    {
         //        //タグが、衝突判定と同じタグだったら
@@ -178,16 +189,16 @@ public class PlayerController : MonoBehaviour
 
         //if(this.transform.position == worldMousePos)
         //{
-        //    click = false;
+        //    right = false;
         //}
 
         //棚のアニメーション
-        if(chestGet)
+        if (chestGet)
         {
             ChestChangeSprite();
         }
         //ツールボックスのアニメーション
-        if(toolboxGet)
+        if (toolboxGet)
         {
             ToolboxChangeSprite();
         }
@@ -204,8 +215,11 @@ public class PlayerController : MonoBehaviour
         //デバック用
         //Debug.Log("animatingStop");
         //移動フラグをfalse
-        click = false;
+        right = false;
         left = false;
+        up = false;
+        down = false;
+
     }
 
 
@@ -220,7 +234,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             //クリックして、オブジェクトがあったら
-            GameObject obj = getClickObject();
+            GameObject obj = getrightObject();
             if (obj != null)
             {
                 //タグが、衝突判定と同じタグだったら
@@ -254,7 +268,7 @@ public class PlayerController : MonoBehaviour
                                 DoorSpriteRenderer.sprite = DoorPut;
                                 break;
                         }
-                     tagName = null;
+                        tagName = null;
                     }
 
                     else if (gender == 1)
@@ -301,6 +315,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(position);
             collisionFlug = true;
             position = new Vector2(position.x, position.y);
+            MoveAngle(position);
             iTween.MoveTo(this.gameObject, iTween.Hash(
                 "position", position,
                 "time", 0.01f,
@@ -317,13 +332,57 @@ public class PlayerController : MonoBehaviour
         //デバック用
         //Debug.Log("animatingStop");
         //移動フラグをfalse
-        click = false;
+        right = false;
         left = false;
+        up = false;
+        down = false;
+    }
+
+    //移動の際の方向取得
+    void MoveAngle(Vector3 direction)
+    {
+        float angle = Mathf.Atan2(-direction.y, -direction.x);
+        angle *= Mathf.Rad2Deg;
+        angle = (angle + 360.0f) % 360.0f;
+        Debug.Log(angle);
+        if ((angle > 315.0f) || (angle < 45.0f))
+        {
+            Debug.Log("右に動く");
+            right = true;
+        }
+        else
+        {
+            if ((angle >= 45.0f) && (angle <= 135.0f))
+            {
+                Debug.Log("上に動く");
+                up = true;
+            }
+            else
+            {
+                if ((angle > 135.0f) && (angle < 225.0f))
+                {
+                    Debug.Log("左に動く");
+                    left = true;
+                }
+                else
+                {
+                    Debug.Log("下に動く");
+                    down = true;
+                }
+            }
+        }
+
+            //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
+            anim.SetBool("run 0", right);
+            anim.SetBool("run 1", left);
+            anim.SetBool("run 2", up);
+            anim.SetBool("run 3", down);
 
     }
 
+
     // 左クリックしたオブジェクトを取得する関数(2D)
-    private GameObject getClickObject()
+    private GameObject getrightObject()
     {
         GameObject result = null;
         // 左クリックされた場所のオブジェクトを取得
@@ -402,7 +461,7 @@ public class PlayerController : MonoBehaviour
     void ChestChangeSprite()
     {
         chestTime++;
-        if(chestTime >= 30)
+        if (chestTime >= 30)
         {
             if (gender == 0)
             {
@@ -426,7 +485,7 @@ public class PlayerController : MonoBehaviour
             {
                 ToolboxSpriteRenderer.sprite = Toolbox2Put;
             }
-            else if(gender == 1)
+            else if (gender == 1)
             {
                 ToolboxSpriteRenderer.sprite = Toolbox2PutLady;
             }
