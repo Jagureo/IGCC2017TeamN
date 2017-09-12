@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
-                                doors[0].transform.position = new Vector3(430f, doors[0].transform.position.y);
+                                doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
                                 DoorSpriteRenderer.sprite = DoorPut;
                                 break;
                         }
@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
-                                doors[0].transform.position = new Vector3(430f, doors[0].transform.position.y);
+                                doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
                                 DoorSpriteRenderer.sprite = DoorPutLady;
                                 break;
                         }
