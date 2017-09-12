@@ -9,7 +9,7 @@ public class WebcamAnimator : MonoBehaviour {
   }
 
   public void OnProgressionChanged(string current) {
-    if (current == "DisableWebcam") {
+    if (current == "WebcamIsDisabled") {
       animator.Play("Webcam@Disabled");
     }
   }
