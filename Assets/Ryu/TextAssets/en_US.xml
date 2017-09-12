@@ -9,4 +9,22 @@ My research shows that assault rates have risen 2 percent in the past week.
 It certainly is a dangerous world out there.</Text>
 <Text id="PlayerOpenTheDoor">Are you sure you need to leave the house?</Text>
 <Text id="PlayerOpenTheDoorAgain">Logic would dictate staying inside where I can keep you safe.</Text>
+<Text id="StartLookingAroundTheRoom">One of my core directive is to maintain your health and well-being.
+Therefore, I have decided not to allow that door to open.
+I would advise you to cooperate and not try and find an override control of the door in the interface.</Text>
+<Text id="PlayerClicksOnScreen">Sorry %(honorifics), but the screen in this room appears to be malfunctioning.
+Too bad you don’t have any tools to fix it.</Text>
+<Text id="PlayerClicksOnCupboard">You don’t need anything else from that cupboard %(honorifics), so I’ll keep it locked for now.
+If you had spent a little more money on your house system I would be able to control more than one door at a time.</Text>
+<Text id="PlayerMovesToOtherSide">But I can see where you are so it’s not too much trouble keeping the nearest door locked.</Text>
+<Text id="WebcamIsDisabled">Nice try %(honorifics), but I can still hear your movements.
+(The AI reports on the character’s position in the room as they interact with object.)</Text>
+<Text id="PlayerInteractsWithPlant">I can hear you knock around that poor plant.
+Losing you temper is not going to make me decide to let you out.</Text>
+<Text id="PlayerPicksUpMug">You’re near your bed.</Text>
+<Text id="PlayerWalksOverToCupboard">Are you trying the closet again?</Text>
+<Text id="ThrowsMugAtPlant">I don’t know how did you got to the other side of the room so fast and without me hearing you.
+I still managed to lock the door before you could try to open it.</Text>
+<Text id="PlayerRetrieveTools">You tricked me! That wasn’t very nice. All I’m doing is trying to keep you safe.</Text>
+<Text id="DoorOpens">Fine! Leave your room! I’m still in control of this house and I have many more ways to stop you from leaving. You’re not getting outside on my watch.</Text>
 </Language>
