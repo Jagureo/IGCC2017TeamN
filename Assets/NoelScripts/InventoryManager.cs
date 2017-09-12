@@ -11,6 +11,7 @@ public class InventoryManager : MonoBehaviour {
     private int openWardrobe;
     private bool lockDown;
     private GameObject renderButton;
+    private GameObject invbackground;
 
     //public Sprite slotEmpty;
     //public Sprite slotTools;
@@ -81,11 +82,19 @@ public class InventoryManager : MonoBehaviour {
         slotPillowBoyDragging = GameObject.Find("SlotPillowBoyDragging").GetComponent<Image>().sprite;
         slotCup = GameObject.Find("SlotMug").GetComponent<Image>().sprite;
         slotCupDragging = GameObject.Find("SlotMugDragging").GetComponent<Image>().sprite;
+        invbackground = GameObject.Find("area");
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 1)
+        {
+            invbackground.GetComponent<Image>().sprite = GameObject.Find("area2").GetComponent<Image>().sprite;
+        }
+        else
+        {
+            invbackground.GetComponent<Image>().sprite = GameObject.Find("area3").GetComponent<Image>().sprite;
+        }
         if(Input.GetMouseButtonDown(0))
         {
             if (Input.mousePosition.x > 0.84 * Screen.width)
@@ -201,6 +210,10 @@ public class InventoryManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log(GameObject.Find("Player").transform.position);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("DoorLock");
         }
 #endif
 
@@ -352,6 +365,7 @@ public class InventoryManager : MonoBehaviour {
                     // Toolbox
                     if(playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                     {
+                        GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                         Debug.Log("Can Use toolbox");
                         return true;
                     }
@@ -359,6 +373,7 @@ public class InventoryManager : MonoBehaviour {
                 case 2:
                     if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                     {
+                        GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                         Debug.Log("Can Use pillow");
                         return true;
                     }
@@ -367,6 +382,7 @@ public class InventoryManager : MonoBehaviour {
                 case 3:
                     if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                     {
+                        GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                         Debug.Log("Can Use cup");
                         return true;
                     }
@@ -386,6 +402,7 @@ public class InventoryManager : MonoBehaviour {
                 // Toolbox
                 if (playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                 {
+                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                     Debug.Log("Can Use toolbox");
                     return true;
                 }
@@ -393,6 +410,7 @@ public class InventoryManager : MonoBehaviour {
             case 2:
                 if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                 {
+                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                     Debug.Log("Can Use pillow");
                     return true;
                 }
@@ -401,6 +419,7 @@ public class InventoryManager : MonoBehaviour {
             case 3:
                 if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                 {
+                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
                     return true;
                 }
@@ -514,7 +533,7 @@ public class InventoryManager : MonoBehaviour {
                 shortestDistance = distance;
             }
         }
-
+        cannotUsePop = 2;
         if (inventorySlot[shortestSlot - 1] == 0)
         {
             GameObject.Find("SlotTemp").transform.position = new Vector3(9999,9999,9999);
@@ -547,6 +566,19 @@ public class InventoryManager : MonoBehaviour {
         if(id == 3 && gotMug == true)
         {
             return;
+        }
+
+        switch(id)
+        {
+            case 1:
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPickup");
+                break;
+            case 2:
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound1");
+                break;
+            case 3:
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugDrop");
+                break;
         }
 
         addItem(id);

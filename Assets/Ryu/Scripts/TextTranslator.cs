@@ -38,14 +38,14 @@ public class TextTranslator : MonoBehaviour {
     var text = LocalizationManager.Instance.GetText(key);
 
     var gender = GameSettingManager.Instance.Gender;
-    string honorifics_key;
+    string honorificsKey;
     switch (gender) {
-    case Gender.Male: honorifics_key = "honorifics_for_men"; break;
-    case Gender.Female: honorifics_key = "honorifics_for_women"; break;
-    default: honorifics_key = "honorifics_for_other"; break;
+    case Gender.Male: honorificsKey = "HonorificsForMen"; break;
+    case Gender.Female: honorificsKey = "HonorificsForWomen"; break;
+    default: honorificsKey = "HonorificsForOther"; break;
     }
 
-    var honorifics = LocalizationManager.Instance.GetText(honorifics_key);
+    var honorifics = LocalizationManager.Instance.GetText(honorificsKey);
     var output = text.Replace("%(honorifics)", honorifics);
 
     target.text = output;
