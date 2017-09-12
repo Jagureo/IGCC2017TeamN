@@ -29,7 +29,8 @@ public class ProgressionManager : MonoBehaviour {
     }
   }
 
-  public void ChangeProgression() {
+  public void ChangeProgression(string progression) {
+    currentProgression = progression;
     onProgressionChanged.Invoke(currentProgression);
   }
 
