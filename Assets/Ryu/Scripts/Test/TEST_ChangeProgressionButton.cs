@@ -6,10 +6,10 @@ public class TEST_ChangeProgressionButton : MonoBehaviour {
   [SerializeField]
   private InputField inputField;
   [SerializeField]
-  private DialogWindow dialogWindow;
+  private ProgressionManager progressionManager;
 
   public void OnClicked() {
-    dialogWindow.AddDialog(inputField.text);
+    progressionManager.ChangeProgression(inputField.text);
   }
 
 }
