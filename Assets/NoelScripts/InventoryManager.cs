@@ -365,6 +365,7 @@ public class InventoryManager : MonoBehaviour {
                     // Toolbox
                     if(playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                     {
+                        GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                         Debug.Log("Can Use toolbox");
                         return true;
                     }
@@ -372,6 +373,7 @@ public class InventoryManager : MonoBehaviour {
                 case 2:
                     if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                     {
+                        GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                         Debug.Log("Can Use pillow");
                         return true;
                     }
@@ -380,6 +382,7 @@ public class InventoryManager : MonoBehaviour {
                 case 3:
                     if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                     {
+                        GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                         Debug.Log("Can Use cup");
                         return true;
                     }
@@ -399,6 +402,7 @@ public class InventoryManager : MonoBehaviour {
                 // Toolbox
                 if (playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                 {
+                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                     Debug.Log("Can Use toolbox");
                     return true;
                 }
@@ -406,6 +410,7 @@ public class InventoryManager : MonoBehaviour {
             case 2:
                 if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                 {
+                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                     Debug.Log("Can Use pillow");
                     return true;
                 }
@@ -414,6 +419,7 @@ public class InventoryManager : MonoBehaviour {
             case 3:
                 if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                 {
+                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
                     return true;
                 }
