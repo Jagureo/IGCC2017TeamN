@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Language id="en_US">
-<Text id="honorifics_for_men">Sir</Text>
-<Text id="honorifics_for_women">Madam</Text>
-<Text id="player_awakening">Good Morning %(honorifics).
+<Text id="HonorificsForMen">Sir</Text>
+<Text id="HonorificsForWomen">Madam</Text>
+<Text id="PlayerAwakening">Good Morning %(honorifics).
 It is currently 22 degrees celsius outside with a chance of light showers. If you look in your closet there will be a suitable outfit for today.
 There have been 3 local car accidents overnight. Please drive carefully.
 My research shows that assault rates have risen 2 percent in the past week.
 It certainly is a dangerous world out there.</Text>
-<Text id="player_open_the_door">Are you sure you need to leave the house?</Text>
-<Text id="player_open_the_door_again">Logic would dictate staying inside where I can keep you safe.</Text>
+<Text id="PlayerOpenTheDoor">Are you sure you need to leave the house?</Text>
+<Text id="PlayerOpenTheDoorAgain">Logic would dictate staying inside where I can keep you safe.</Text>
 </Language>

@@ -12,10 +12,20 @@ public class InventoryManager : MonoBehaviour {
     private bool lockDown;
     private GameObject renderButton;
 
-    public Sprite slotEmpty;
-    public Sprite slotTools;
-    public Sprite slotPillow;
-    public Sprite slotCup;
+    //public Sprite slotEmpty;
+    //public Sprite slotTools;
+    //public Sprite slotPillow;
+    //public Sprite slotCup;
+
+    private Sprite slotEmpty;
+    private Sprite slotTools;
+    private Sprite slotToolsDragging;
+    private Sprite slotPillowGirl;
+    private Sprite slotPillowGirlDragging;
+    private Sprite slotPillowBoy;
+    private Sprite slotPillowBoyDragging;
+    private Sprite slotCup;
+    private Sprite slotCupDragging;
 
     private GameObject cannotUseBox;
     private GameObject wardrobeSelection;
@@ -27,6 +37,14 @@ public class InventoryManager : MonoBehaviour {
     private GameObject playerResponse;
     private int imageTimer;
     private Vector3 lastClickedPos;
+
+    private bool dragging;
+    private int prevSlot;
+    private int prevItem;
+
+    private bool gotToolbox=false;
+    private bool gotPillow=false;
+    private bool gotMug=false;
 
     // Use this for initialization
     void Start()
@@ -53,30 +71,55 @@ public class InventoryManager : MonoBehaviour {
         playerResponse = GameObject.Find("PlayerReaction");
         imageTimer = -1;
         tapDelay = 1;
+
+        slotEmpty = GameObject.Find("SlotTemp").GetComponent<Image>().sprite;
+        slotTools = GameObject.Find("SlotTools").GetComponent<Image>().sprite;
+        slotToolsDragging = GameObject.Find("SlotToolsDragging").GetComponent<Image>().sprite;
+        slotPillowGirl = GameObject.Find("SlotPillowLady").GetComponent<Image>().sprite;
+        slotPillowGirlDragging = GameObject.Find("SlotPillowLadyDragging").GetComponent<Image>().sprite;
+        slotPillowBoy = GameObject.Find("SlotPillowBoy").GetComponent<Image>().sprite;
+        slotPillowBoyDragging = GameObject.Find("SlotPillowBoyDragging").GetComponent<Image>().sprite;
+        slotCup = GameObject.Find("SlotMug").GetComponent<Image>().sprite;
+        slotCupDragging = GameObject.Find("SlotMugDragging").GetComponent<Image>().sprite;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        //
-        //if (playerChar != null)
-        //{
-        //    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
-        //    {
-        //        Debug.Log("Can Use toolbox");
-        //    }
-        //
-        //    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
-        //    {
-        //        Debug.Log("Can Use pillow");
-        //    }
-        //
-        //    if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
-        //    {
-        //        Debug.Log("Can Use cup");
-        //    }
-        //}
-        //
-        if(triggerRender == true)
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (Input.mousePosition.x > 0.84 * Screen.width)
+            {
+                pickupObject();
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0) && dragging == true)
+        {
+            if(checkUsable(prevItem, true))
+            {
+                useItem(prevSlot - 1);
+                rerenderButtons();
+            }
+            else
+            {
+                releaseObject();
+                rerenderButtons();
+            }
+            
+            dragging = false;
+        }
+        
+        if(dragging == true)
+        {
+            GameObject.Find("SlotTemp").transform.position = Input.mousePosition;
+        }
+        else
+        {
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999, 9999, 9999);
+        }
+        
+        if (triggerRender == true)
         {
             rerenderButtons();
             triggerRender = false;
@@ -155,9 +198,13 @@ public class InventoryManager : MonoBehaviour {
         {
             triggerPlayerQuestionMark();
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log(GameObject.Find("Player").transform.position);
+        }
 #endif
 
-        if(tapDelay == 1)
+        if (tapDelay == 1)
         {
             tapper.transform.position = lastClickedPos;
             tapper.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -207,6 +254,18 @@ public class InventoryManager : MonoBehaviour {
             {
                 inventorySlot[i] = id;
                 triggerRender = true;
+                switch(id)
+                {
+                    case 1:
+                        gotToolbox = true;
+                        break;
+                    case 2:
+                        gotPillow = true;
+                        break;
+                    case 3:
+                        gotMug = true;
+                        break;
+                }
                 return;
             }
         }
@@ -266,7 +325,14 @@ public class InventoryManager : MonoBehaviour {
                     renderButton.GetComponent<Image>().sprite = slotTools;
                     break;
                 case 2:
-                    renderButton.GetComponent<Image>().sprite = slotPillow;
+                    if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 0)
+                    {
+                        renderButton.GetComponent<Image>().sprite = slotPillowBoy;
+                    }
+                    else
+                    {
+                        renderButton.GetComponent<Image>().sprite = slotPillowGirl;
+                    }
                     break;
                 case 3:
                     renderButton.GetComponent<Image>().sprite = slotCup;
@@ -284,14 +350,14 @@ public class InventoryManager : MonoBehaviour {
             {
                 case 1:
                     // Toolbox
-                    if(playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
+                    if(playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                     {
                         Debug.Log("Can Use toolbox");
                         return true;
                     }
                     return false;
                 case 2:
-                    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
+                    if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
                     {
                         Debug.Log("Can Use pillow");
                         return true;
@@ -299,7 +365,7 @@ public class InventoryManager : MonoBehaviour {
                     // Pillow
                     return false;
                 case 3:
-                    if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
+                    if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
                     {
                         Debug.Log("Can Use cup");
                         return true;
@@ -307,6 +373,39 @@ public class InventoryManager : MonoBehaviour {
                     // Cup
                     return false;
             }
+        }
+        return false;
+    }
+
+    bool checkUsable(int slot, bool itemInsert)
+    {
+
+        switch (slot)
+        {
+            case 1:
+                // Toolbox
+                if (playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
+                {
+                    Debug.Log("Can Use toolbox");
+                    return true;
+                }
+                return false;
+            case 2:
+                if (playerChar.transform.position.y > 220 && playerChar.transform.position.x > 360)
+                {
+                    Debug.Log("Can Use pillow");
+                    return true;
+                }
+                // Pillow
+                return false;
+            case 3:
+                if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
+                {
+                    Debug.Log("Can Use cup");
+                    return true;
+                }
+                // Cup
+                return false;
         }
         return false;
     }
@@ -353,4 +452,103 @@ public class InventoryManager : MonoBehaviour {
         imageTimer = 180;
     }
 
+    public void pickupObject()
+    {
+        float shortestDistance = 0.0f;
+        int shortestSlot = 0;
+        for (int i = 0; i < 12; i++)
+        {
+            string myNewString = "Slot" + (i + 1);
+            renderButton = GameObject.Find(myNewString);
+            float distance = Vector3.Distance(renderButton.transform.position, Input.mousePosition);
+            if(shortestSlot == 0 || shortestDistance > distance)
+            {
+                shortestSlot = i + 1;
+                shortestDistance = distance;
+            }
+        }
+
+        if (inventorySlot[shortestSlot-1] != 0)
+        {
+            switch(GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite.name)
+            {
+                case "mug1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotCupDragging;
+                    break;
+                case "pillow_female1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotPillowGirlDragging;
+                    break;
+                case "pillow_male1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotPillowBoyDragging;
+                    break;
+                case "tools1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotToolsDragging;
+                    break;
+            }
+            //GameObject.Find("SlotTemp").GetComponent<Image>().sprite = GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite;
+            GameObject.Find("SlotTemp").transform.position = Input.mousePosition;
+            dragging = true;
+
+            string myNewString = "Slot" + shortestSlot;
+            renderButton = GameObject.Find(myNewString);
+            renderButton.GetComponent<Image>().sprite = slotEmpty;
+            prevItem = inventorySlot[shortestSlot - 1];
+            inventorySlot[shortestSlot - 1] = 0;
+
+            prevSlot = shortestSlot;
+        }
+    }
+
+    public void releaseObject()
+    {
+        float shortestDistance = 0.0f;
+        int shortestSlot = 0;
+        for (int i = 0; i < 12; i++)
+        {
+            string myNewString = "Slot" + (i + 1);
+            renderButton = GameObject.Find(myNewString);
+            float distance = Vector3.Distance(renderButton.transform.position, Input.mousePosition);
+            if (shortestSlot == 0 || shortestDistance > distance)
+            {
+                shortestSlot = i + 1;
+                shortestDistance = distance;
+            }
+        }
+
+        if (inventorySlot[shortestSlot - 1] == 0)
+        {
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999,9999,9999);
+            dragging = false;
+
+            string myNewString = "Slot" + shortestSlot;
+            renderButton = GameObject.Find(myNewString);
+            renderButton.GetComponent<Image>().sprite = GameObject.Find("SlotTemp").GetComponent<Image>().sprite;
+
+            inventorySlot[shortestSlot - 1] = prevItem;
+        }
+        else
+        {
+            inventorySlot[prevSlot - 1] = prevItem;
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999, 9999, 9999);
+            triggerRender = true;
+        }
+    }
+
+    public void checkAdd(int id)
+    {
+        if(id == 1 && gotToolbox == true)
+        {
+            return;
+        }
+        if (id == 2 && gotPillow == true)
+        {
+            return;
+        }
+        if(id == 3 && gotMug == true)
+        {
+            return;
+        }
+
+        addItem(id);
+    }
 }
