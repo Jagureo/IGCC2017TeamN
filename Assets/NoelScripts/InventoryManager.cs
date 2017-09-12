@@ -32,6 +32,10 @@ public class InventoryManager : MonoBehaviour {
     private int prevSlot;
     private int prevItem;
 
+    private bool gotToolbox=false;
+    private bool gotPillow=false;
+    private bool gotMug=false;
+
     // Use this for initialization
     void Start()
     {
@@ -224,6 +228,18 @@ public class InventoryManager : MonoBehaviour {
             {
                 inventorySlot[i] = id;
                 triggerRender = true;
+                switch(id)
+                {
+                    case 1:
+                        gotToolbox = true;
+                        break;
+                    case 2:
+                        gotPillow = true;
+                        break;
+                    case 3:
+                        gotMug = true;
+                        break;
+                }
                 return;
             }
         }
@@ -470,4 +486,21 @@ public class InventoryManager : MonoBehaviour {
         }
     }
 
+    public void checkAdd(int id)
+    {
+        if(id == 1 && gotToolbox == true)
+        {
+            return;
+        }
+        if (id == 2 && gotPillow == true)
+        {
+            return;
+        }
+        if(id == 3 && gotMug == true)
+        {
+            return;
+        }
+
+        addItem(id);
+    }
 }
