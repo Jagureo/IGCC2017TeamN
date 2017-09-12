@@ -28,6 +28,10 @@ public class InventoryManager : MonoBehaviour {
     private int imageTimer;
     private Vector3 lastClickedPos;
 
+    private bool dragging;
+    private int prevSlot;
+    private int prevItem;
+
     // Use this for initialization
     void Start()
     {
@@ -57,26 +61,39 @@ public class InventoryManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //
-        //if (playerChar != null)
-        //{
-        //    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
-        //    {
-        //        Debug.Log("Can Use toolbox");
-        //    }
-        //
-        //    if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
-        //    {
-        //        Debug.Log("Can Use pillow");
-        //    }
-        //
-        //    if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
-        //    {
-        //        Debug.Log("Can Use cup");
-        //    }
-        //}
-        //
-        if(triggerRender == true)
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            if (Input.mousePosition.x > 0.84 * Screen.width)
+            {
+                pickupObject();
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0) && dragging == true)
+        {
+            if(checkUsable(prevItem, true))
+            {
+                useItem(prevSlot - 1);
+            }
+            else
+            {
+                releaseObject();
+            }
+            
+            dragging = false;
+        }
+        
+        if(dragging == true)
+        {
+            GameObject.Find("SlotTemp").transform.position = Input.mousePosition;
+        }
+        else
+        {
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999, 9999, 9999);
+        }
+        
+        if (triggerRender == true)
         {
             rerenderButtons();
             triggerRender = false;
@@ -311,6 +328,39 @@ public class InventoryManager : MonoBehaviour {
         return false;
     }
 
+    bool checkUsable(int slot, bool itemInsert)
+    {
+
+        switch (slot)
+        {
+            case 1:
+                // Toolbox
+                if (playerChar.transform.position.y < 120 && playerChar.transform.position.x < 252)
+                {
+                    Debug.Log("Can Use toolbox");
+                    return true;
+                }
+                return false;
+            case 2:
+                if (playerChar.transform.position.y < 120 && playerChar.transform.position.x > 375)
+                {
+                    Debug.Log("Can Use pillow");
+                    return true;
+                }
+                // Pillow
+                return false;
+            case 3:
+                if (playerChar.transform.position.y > 200 && playerChar.transform.position.x > 375)
+                {
+                    Debug.Log("Can Use cup");
+                    return true;
+                }
+                // Cup
+                return false;
+        }
+        return false;
+    }
+
     public void openWardrobeMenu()
     {
         openWardrobe = 2;
@@ -351,6 +401,73 @@ public class InventoryManager : MonoBehaviour {
     public void triggerPlayerQuestionMark()
     {
         imageTimer = 180;
+    }
+
+    public void pickupObject()
+    {
+        float shortestDistance = 0.0f;
+        int shortestSlot = 0;
+        for (int i = 0; i < 12; i++)
+        {
+            string myNewString = "Slot" + (i + 1);
+            renderButton = GameObject.Find(myNewString);
+            float distance = Vector3.Distance(renderButton.transform.position, Input.mousePosition);
+            if(shortestSlot == 0 || shortestDistance > distance)
+            {
+                shortestSlot = i + 1;
+                shortestDistance = distance;
+            }
+        }
+
+        if (inventorySlot[shortestSlot-1] != 0)
+        {
+            GameObject.Find("SlotTemp").GetComponent<Image>().sprite = GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite;
+            GameObject.Find("SlotTemp").transform.position = Input.mousePosition;
+            dragging = true;
+
+            string myNewString = "Slot" + shortestSlot;
+            renderButton = GameObject.Find(myNewString);
+            renderButton.GetComponent<Image>().sprite = slotEmpty;
+            prevItem = inventorySlot[shortestSlot - 1];
+            inventorySlot[shortestSlot - 1] = 0;
+
+            prevSlot = shortestSlot;
+        }
+    }
+
+    public void releaseObject()
+    {
+        float shortestDistance = 0.0f;
+        int shortestSlot = 0;
+        for (int i = 0; i < 12; i++)
+        {
+            string myNewString = "Slot" + (i + 1);
+            renderButton = GameObject.Find(myNewString);
+            float distance = Vector3.Distance(renderButton.transform.position, Input.mousePosition);
+            if (shortestSlot == 0 || shortestDistance > distance)
+            {
+                shortestSlot = i + 1;
+                shortestDistance = distance;
+            }
+        }
+
+        if (inventorySlot[shortestSlot - 1] == 0)
+        {
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999,9999,9999);
+            dragging = false;
+
+            string myNewString = "Slot" + shortestSlot;
+            renderButton = GameObject.Find(myNewString);
+            renderButton.GetComponent<Image>().sprite = GameObject.Find("SlotTemp").GetComponent<Image>().sprite;
+
+            inventorySlot[shortestSlot - 1] = prevItem;
+        }
+        else
+        {
+            inventorySlot[prevSlot - 1] = prevItem;
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999, 9999, 9999);
+            triggerRender = true;
+        }
     }
 
 }
