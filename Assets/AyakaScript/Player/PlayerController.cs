@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         left = false;
 
         //デバック用（性別を男性にした）
-        gender = 0;
+        gender = 1;
 
         //性別をセット
         anim.SetInteger("gender", gender);
@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
-                                doors[0].transform.position = new Vector3(446f, doors[0].transform.position.y);
+                                doors[0].transform.position = new Vector3(430f, doors[0].transform.position.y);
                                 DoorSpriteRenderer.sprite = DoorPut;
                                 break;
                         }
@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
-                                doors[0].transform.position = new Vector3(446f, doors[0].transform.position.y);
+                                doors[0].transform.position = new Vector3(430f, doors[0].transform.position.y);
                                 DoorSpriteRenderer.sprite = DoorPutLady;
                                 break;
                         }
@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(position);
             collisionFlug = true;
             position = new Vector2(position.x, position.y);
-            MoveAngle(position);
+            //MoveAngle(position);
             iTween.MoveTo(this.gameObject, iTween.Hash(
                 "position", position,
                 "time", 0.01f,
