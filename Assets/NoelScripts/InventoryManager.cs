@@ -12,10 +12,20 @@ public class InventoryManager : MonoBehaviour {
     private bool lockDown;
     private GameObject renderButton;
 
-    public Sprite slotEmpty;
-    public Sprite slotTools;
-    public Sprite slotPillow;
-    public Sprite slotCup;
+    //public Sprite slotEmpty;
+    //public Sprite slotTools;
+    //public Sprite slotPillow;
+    //public Sprite slotCup;
+
+    private Sprite slotEmpty;
+    private Sprite slotTools;
+    private Sprite slotToolsDragging;
+    private Sprite slotPillowGirl;
+    private Sprite slotPillowGirlDragging;
+    private Sprite slotPillowBoy;
+    private Sprite slotPillowBoyDragging;
+    private Sprite slotCup;
+    private Sprite slotCupDragging;
 
     private GameObject cannotUseBox;
     private GameObject wardrobeSelection;
@@ -61,6 +71,16 @@ public class InventoryManager : MonoBehaviour {
         playerResponse = GameObject.Find("PlayerReaction");
         imageTimer = -1;
         tapDelay = 1;
+
+        slotEmpty = GameObject.Find("SlotTemp").GetComponent<Image>().sprite;
+        slotTools = GameObject.Find("SlotTools").GetComponent<Image>().sprite;
+        slotToolsDragging = GameObject.Find("SlotToolsDragging").GetComponent<Image>().sprite;
+        slotPillowGirl = GameObject.Find("SlotPillowLady").GetComponent<Image>().sprite;
+        slotPillowGirlDragging = GameObject.Find("SlotPillowLadyDragging").GetComponent<Image>().sprite;
+        slotPillowBoy = GameObject.Find("SlotPillowBoy").GetComponent<Image>().sprite;
+        slotPillowBoyDragging = GameObject.Find("SlotPillowBoyDragging").GetComponent<Image>().sprite;
+        slotCup = GameObject.Find("SlotMug").GetComponent<Image>().sprite;
+        slotCupDragging = GameObject.Find("SlotMugDragging").GetComponent<Image>().sprite;
     }
 	
 	// Update is called once per frame
@@ -79,10 +99,12 @@ public class InventoryManager : MonoBehaviour {
             if(checkUsable(prevItem, true))
             {
                 useItem(prevSlot - 1);
+                rerenderButtons();
             }
             else
             {
                 releaseObject();
+                rerenderButtons();
             }
             
             dragging = false;
@@ -303,7 +325,14 @@ public class InventoryManager : MonoBehaviour {
                     renderButton.GetComponent<Image>().sprite = slotTools;
                     break;
                 case 2:
-                    renderButton.GetComponent<Image>().sprite = slotPillow;
+                    if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 0)
+                    {
+                        renderButton.GetComponent<Image>().sprite = slotPillowBoy;
+                    }
+                    else
+                    {
+                        renderButton.GetComponent<Image>().sprite = slotPillowGirl;
+                    }
                     break;
                 case 3:
                     renderButton.GetComponent<Image>().sprite = slotCup;
@@ -441,7 +470,22 @@ public class InventoryManager : MonoBehaviour {
 
         if (inventorySlot[shortestSlot-1] != 0)
         {
-            GameObject.Find("SlotTemp").GetComponent<Image>().sprite = GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite;
+            switch(GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite.name)
+            {
+                case "mug1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotCupDragging;
+                    break;
+                case "pillow_female1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotPillowGirlDragging;
+                    break;
+                case "pillow_male1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotPillowBoyDragging;
+                    break;
+                case "tools1":
+                    GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotToolsDragging;
+                    break;
+            }
+            //GameObject.Find("SlotTemp").GetComponent<Image>().sprite = GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite;
             GameObject.Find("SlotTemp").transform.position = Input.mousePosition;
             dragging = true;
 
