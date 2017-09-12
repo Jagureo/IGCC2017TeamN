@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
         left = false;
 
         //デバック用（性別を男性にした）
-        gender = 1;
+        gender = 0;
 
         //性別をセット
         anim.SetInteger("gender", gender);
@@ -237,11 +237,11 @@ public class PlayerController : MonoBehaviour
             GameObject obj = getrightObject();
             if (obj != null)
             {
+                anim.SetTrigger("reach");
                 //タグが、衝突判定と同じタグだったら
                 if (obj.tag == tagName)
                 {
                     Debug.Log("取得");
-                    anim.SetTrigger("reach");
                     if (gender == 0)
                     {
                         switch (tagName)
@@ -255,7 +255,7 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 break;
                             case "desk":
-                                 DeskSpriteRenderer.sprite = DeskPut;
+                                DeskSpriteRenderer.sprite = DeskPut;
                                 break;
                             case "chest":
                                 ChestSpriteRenderer.sprite = ChestPut;
@@ -378,11 +378,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-            //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
-            anim.SetBool("run 0", right);
-            anim.SetBool("run 1", left);
-            anim.SetBool("run 2", up);
-            anim.SetBool("run 3", down);
+        //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
+        anim.SetBool("run 0", right);
+        anim.SetBool("run 1", left);
+        anim.SetBool("run 2", up);
+        anim.SetBool("run 3", down);
 
     }
 
@@ -469,6 +469,8 @@ public class PlayerController : MonoBehaviour
         chestTime++;
         if (chestTime >= 30)
         {
+            anim.SetBool("change", true);
+
             if (gender == 0)
             {
                 ChestSpriteRenderer.sprite = Chest2Put;
