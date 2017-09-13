@@ -54,6 +54,7 @@ public class InventoryManager : MonoBehaviour
     private float distanceTravelled;
 
     private int awakeTimer;
+    private int garbageTimer;
 
     [SerializeField]
     private DialogWindow dialogWindow;
@@ -96,11 +97,23 @@ public class InventoryManager : MonoBehaviour
         invbackground = GameObject.Find("area");
 
         awakeTimer = 30;
+        garbageTimer = 60;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(garbageTimer < 0)
+        {
+            garbageTimer = 60;
+            System.GC.Collect();
+        }
+        else
+        {
+            garbageTimer--;
+        }
+
+
         if (plantTriggered == false)
         {
             if (Vector3.Distance(GameObject.Find("planter").transform.position, GameObject.Find("Player").transform.position) < 100)
@@ -160,11 +173,11 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 distanceTravelled += Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition);
-                if (Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition) > 0.2f * Screen.width)
+                if (Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition) > 0.4f * Screen.width)
                 {
                     ProgressionManager.Instance.ChangeProgression("PlayerMovesToOtherSide");
                 }
-                else if(distanceTravelled > 2.0f* Screen.width)
+                else if(distanceTravelled > 3.0f* Screen.width)
                 {
                     ProgressionManager.Instance.ChangeProgression("StartLookingAroundTheRoom");
                     distanceTravelled = 0;
