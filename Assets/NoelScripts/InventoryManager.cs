@@ -47,6 +47,9 @@ public class InventoryManager : MonoBehaviour {
     private bool gotPillow=false;
     private bool gotMug=false;
 
+    [SerializeField]
+    private DialogWindow dialogWindow;
+
     // Use this for initialization
     void Start()
     {
@@ -214,6 +217,10 @@ public class InventoryManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.C))
         {
             GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("DoorLock");
+        }
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            testDialog();
         }
 #endif
 
@@ -582,5 +589,10 @@ public class InventoryManager : MonoBehaviour {
         }
 
         addItem(id);
+    }
+
+    public void testDialog()
+    {
+        dialogWindow.AddDialog("HelloWorld");
     }
 }
