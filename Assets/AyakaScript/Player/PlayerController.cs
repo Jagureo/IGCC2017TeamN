@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
         right = false;
         left = false;
 
+        SpriteInitialize();
     }
 
     // Update is called once per frame
