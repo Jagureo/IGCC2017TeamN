@@ -55,8 +55,15 @@ public class PlayerController : MonoBehaviour
     GameObject[] toolboxs;
     GameObject[] doors;
 
+    //それぞれ、物を取得したかどうかの確認フラグ
+    bool bedGet = false;
+    bool sidetableGet = false;
+    bool deskGet = false;
     bool chestGet = false;
     bool toolboxGet = false;
+    bool doorGet = false;
+
+    //たんすとツールボックスのみ、アニメーション用変数
     int toolboxTime = 0;
     int chestTime = 0;
 
@@ -114,8 +121,7 @@ public class PlayerController : MonoBehaviour
     {
 
         //性別切り替え（0が男性、1が女性）
-        gender = 0;
-        //性別をセット
+        //SetGender();
         anim.SetInteger("gender", gender);
         //画像を性別に合わせる
         SpriteGender();
@@ -254,9 +260,11 @@ public class PlayerController : MonoBehaviour
                         {
                             case "Bed":
                                 BedSpriteRenderer.sprite = BedPut;
+                                bedGet = true;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(2);
                                 break;
                             case "sidetable":
+                                sidetableGet = true;
                                 SidetableSpriteRenderer.sprite = SidetablePut;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 break;
@@ -360,6 +368,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+    //性別を外部から変数をもらってきて変更する
+    //取得用関数
+    public void SetGender()
+    {
+        anim.SetBool("genderSelect", true);
+    }
 
     //衝突、動くのが終わった後に呼ばれる関数
     void OnCollision()
@@ -495,6 +511,10 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+    //------------------------------------------------------------------//
+    //それぞれ、物を取ったり触ったりした際に画像を変更する関数
+    //------------------------------------------------------------------//
 
     //箪笥のアニメーション
     void ChestChangeSprite()
