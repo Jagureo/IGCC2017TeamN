@@ -302,16 +302,25 @@ public class PlayerController : MonoBehaviour
                                 chestGet = true;
                                 break;
                             case "toolbox":
-                                //ToolboxSpriteRenderer.sprite = ToolboxPut;
-                                toolboxGet = true;
-                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                if (GameObject.Find("area").GetComponent<InventoryManager>().gotMug == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(3) == false)
+                                {
+                                    //ToolboxSpriteRenderer.sprite = ToolboxPut;
+                                    toolboxGet = true;
+                                    GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                    ProgressionManager.Instance.ChangeProgression("PlayerRetrieveTools");
+                                }
+                                else
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerClicksOnCupboard");
+                                }
                                 break;
                             case "door":
-                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens")
+                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens" || (GameObject.Find("area").GetComponent<InventoryManager>().gotToolbox == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(1) == false))
                                 {
                                     //doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
                                     //DoorSpriteRenderer.sprite = DoorPut;
                                     doorGet = true;
+                                    GameObject.Find("Credits").GetComponent<WhiteFade>().endGame();
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
                                 {
@@ -349,16 +358,25 @@ public class PlayerController : MonoBehaviour
                                 chestGet = true;
                                 break;
                             case "toolbox":
-                                //ToolboxSpriteRenderer.sprite = ToolboxPutLady;
-                                toolboxGet = true;
-                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                if (GameObject.Find("area").GetComponent<InventoryManager>().gotMug == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(3) == false)
+                                {
+                                    //ToolboxSpriteRenderer.sprite = ToolboxPutLady;
+                                    toolboxGet = true;
+                                    GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                    ProgressionManager.Instance.ChangeProgression("PlayerRetrieveTools");
+                                }
+                                else
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerClicksOnCupboard");
+                                }
                                 break;
                             case "door":
-                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens")
+                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens" || (GameObject.Find("area").GetComponent<InventoryManager>().gotToolbox == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(1) == false))
                                 {
                                     //doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
                                     //DoorSpriteRenderer.sprite = DoorPutLady;
                                     doorGet = true;
+                                    GameObject.Find("Credits").GetComponent<WhiteFade>().endGame();
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
                                 {
