@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour {
   [SerializeField]
@@ -11,4 +12,9 @@ public class TitleScreen : MonoBehaviour {
     panel.SetActive(true);
     languageSelectionPanel.SetActive(true);
   }
+
+  public void StartGame() {
+    SceneManager.LoadScene("GamePlayScreen");
+  }
+
 }

@@ -7,3 +7,5 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/InventoryOnly+House.unity
+  - enabled: 1
+    path: Assets/TitleScreen.unity
