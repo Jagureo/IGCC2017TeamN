@@ -104,13 +104,9 @@ public class PlayerController : MonoBehaviour
         right = false;
         left = false;
 
-        //デバック用（性別を男性にした）
-        gender = 0;
+        ////性別切り替え（0が男性、1が女性）
+        //gender = 2;
 
-        //性別をセット
-        anim.SetInteger("gender", gender);
-        //画像を性別に合わせる
-        SpriteGender();
     }
 
     // Update is called once per frame
@@ -311,7 +307,6 @@ public class PlayerController : MonoBehaviour
                                 DeskSpriteRenderer.sprite = DeskPutLady;
                                 break;
                             case "chest":
-                                //chests[0].transform.position = new Vector3(chests[0].transform.position.x, 254f);
                                 ChestSpriteRenderer.sprite = ChestPutLady;
                                 chestGet = true;
                                 break;
@@ -438,6 +433,10 @@ public class PlayerController : MonoBehaviour
         return result;
     }
 
+    void GenderInitilize()
+    {
+
+    }
 
     void SpriteInitialize()
     {
@@ -515,6 +514,18 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+        else
+        {
+            if (gender == 0)
+            {
+                ChestSpriteRenderer.sprite = ChestPut;
+            }
+            else if (gender == 1)
+            {
+                ChestSpriteRenderer.sprite = ChestPutLady;
+            }
+
+        }
     }
 
     //ツールボックスのアニメーション
@@ -530,6 +541,18 @@ public class PlayerController : MonoBehaviour
             else if (gender == 1)
             {
                 ToolboxSpriteRenderer.sprite = Toolbox2PutLady;
+            }
+
+        }
+        else
+        {
+            if (gender == 0)
+            {
+                ToolboxSpriteRenderer.sprite = ToolboxPut;
+            }
+            else if (gender == 1)
+            {
+                ToolboxSpriteRenderer.sprite = ToolboxPutLady;
             }
 
         }
