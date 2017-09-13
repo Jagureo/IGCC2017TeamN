@@ -4679,7 +4679,7 @@ MonoBehaviour:
   wall_Right: 450
   wall_Bottom: 40
   wall_Top: 230
-  gender: 0
+  gender: 1
   right: 0
   left: 0
   up: 0

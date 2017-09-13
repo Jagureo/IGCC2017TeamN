@@ -116,6 +116,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //性別切り替え（0が男性、1が女性）
+        gender = 0;
+        //性別をセット
+        anim.SetInteger("gender", gender);
+        //画像を性別に合わせる
+        SpriteGender();
+
+
         //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
         anim.SetBool("run 0", right);
         anim.SetBool("run 1", left);
@@ -242,6 +251,7 @@ public class PlayerController : MonoBehaviour
                 if (obj.tag == tagName)
                 {
                     Debug.Log("取得");
+                    //性別分ける
                     if (gender == 0)
                     {
                         switch (tagName)
@@ -273,7 +283,7 @@ public class PlayerController : MonoBehaviour
                         }
                         tagName = null;
                     }
-
+                    //女性の場合
                     else if (gender == 1)
                     {
                         switch (tagName)
@@ -314,6 +324,8 @@ public class PlayerController : MonoBehaviour
                 collisionFlug = false;
             }
         }
+
+        //クリックしたところにオブジェクトが無かったら
         else
         {
             Vector2 position = new Vector2(0, 0);
@@ -378,7 +390,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
+        //歩くアニメーション(フラグがtrueなら動く、falseなら動かない)
         anim.SetBool("run 0", right);
         anim.SetBool("run 1", left);
         anim.SetBool("run 2", up);
