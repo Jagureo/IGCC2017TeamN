@@ -42,5 +42,6 @@ public class GenderSelectionPanel : MonoBehaviour {
     var player = FindObjectOfType<PlayerController>();
     if (player == null) return;
     player.gender = (int)GameSettingManager.Instance.Gender;
+    player.SetGender();
   }
 }
