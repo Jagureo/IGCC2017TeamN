@@ -203,6 +203,26 @@ public class PlayerController : MonoBehaviour
         //    right = false;
         //}
 
+        //------------------------------------------------------------------//
+        //画像切り替え用
+        //------------------------------------------------------------------//
+
+        //ベッド
+        if(bedGet)
+        {
+            BedChangeSprite();
+        }
+        //サイドテーブル
+        if(sidetableGet)
+        {
+            SidetableChangeSprite();
+        }
+        //机
+        if(deskGet)
+        {
+            DeskChangeSprite();
+        }
+
         //棚のアニメーション
         if (chestGet)
         {
@@ -212,6 +232,11 @@ public class PlayerController : MonoBehaviour
         if (toolboxGet)
         {
             ToolboxChangeSprite();
+        }
+        //ドア
+        if(doorGet)
+        {
+            DoorChangeSprite();
         }
 
         //壁処理（Mashf.Clamp(制限する座標値, 最小値, 最大値)
@@ -259,38 +284,49 @@ public class PlayerController : MonoBehaviour
                         switch (tagName)
                         {
                             case "Bed":
-                                BedSpriteRenderer.sprite = BedPut;
+                                //BedSpriteRenderer.sprite = BedPut;
                                 bedGet = true;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(2);
                                 break;
                             case "sidetable":
                                 sidetableGet = true;
-                                SidetableSpriteRenderer.sprite = SidetablePut;
+                                //SidetableSpriteRenderer.sprite = SidetablePut;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 break;
                             case "desk":
-                                DeskSpriteRenderer.sprite = DeskPut;
+                                deskGet = true;
+                                //DeskSpriteRenderer.sprite = DeskPut;
                                 break;
                             case "chest":
-                                ChestSpriteRenderer.sprite = ChestPut;
+                                //ChestSpriteRenderer.sprite = ChestPut;
                                 chestGet = true;
                                 break;
                             case "toolbox":
-                                ToolboxSpriteRenderer.sprite = ToolboxPut;
-                                toolboxGet = true;
-                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                if (GameObject.Find("area").GetComponent<InventoryManager>().gotMug == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(3) == false)
+                                {
+                                    //ToolboxSpriteRenderer.sprite = ToolboxPut;
+                                    toolboxGet = true;
+                                    GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                    ProgressionManager.Instance.ChangeProgression("PlayerRetrieveTools");
+                                }
+                                else
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerClicksOnCupboard");
+                                }
                                 break;
                             case "door":
-                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens")
+                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens" || (GameObject.Find("area").GetComponent<InventoryManager>().gotToolbox == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(1) == false))
                                 {
-                                    doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
-                                    DoorSpriteRenderer.sprite = DoorPut;
+                                    //doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
+                                    //DoorSpriteRenderer.sprite = DoorPut;
+                                    doorGet = true;
+                                    GameObject.Find("Credits").GetComponent<WhiteFade>().endGame();
                                 }
-                                else if(ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
+                                else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
                                 {
                                     ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoorAgain");
                                 }
-                                else if(ProgressionManager.Instance.CurrentProgression != "PlayerOpenTheDoorAgain")
+                                else if (ProgressionManager.Instance.CurrentProgression != "PlayerOpenTheDoorAgain")
                                 {
                                     ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoor");
                                 }
@@ -304,30 +340,43 @@ public class PlayerController : MonoBehaviour
                         switch (tagName)
                         {
                             case "Bed":
-                                BedSpriteRenderer.sprite = BedPutLady;
+                                //BedSpriteRenderer.sprite = BedPutLady;
+                                bedGet = true;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(2);
                                 break;
                             case "sidetable":
-                                SidetableSpriteRenderer.sprite = SidetablePutLady;
+                                //SidetableSpriteRenderer.sprite = SidetablePutLady;
+                                sidetableGet = true;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 break;
                             case "desk":
-                                DeskSpriteRenderer.sprite = DeskPutLady;
+                                deskGet = true;
+                                //DeskSpriteRenderer.sprite = DeskPutLady;
                                 break;
                             case "chest":
-                                ChestSpriteRenderer.sprite = ChestPutLady;
+                                //ChestSpriteRenderer.sprite = ChestPutLady;
                                 chestGet = true;
                                 break;
                             case "toolbox":
-                                ToolboxSpriteRenderer.sprite = ToolboxPutLady;
-                                toolboxGet = true;
-                                GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                if (GameObject.Find("area").GetComponent<InventoryManager>().gotMug == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(3) == false)
+                                {
+                                    //ToolboxSpriteRenderer.sprite = ToolboxPutLady;
+                                    toolboxGet = true;
+                                    GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
+                                    ProgressionManager.Instance.ChangeProgression("PlayerRetrieveTools");
+                                }
+                                else
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerClicksOnCupboard");
+                                }
                                 break;
                             case "door":
-                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens")
+                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens" || (GameObject.Find("area").GetComponent<InventoryManager>().gotToolbox == true && GameObject.Find("area").GetComponent<InventoryManager>().searchInventory(1) == false))
                                 {
-                                    doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
-                                    DoorSpriteRenderer.sprite = DoorPutLady;
+                                    //doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
+                                    //DoorSpriteRenderer.sprite = DoorPutLady;
+                                    doorGet = true;
+                                    GameObject.Find("Credits").GetComponent<WhiteFade>().endGame();
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
                                 {
@@ -516,6 +565,45 @@ public class PlayerController : MonoBehaviour
     //それぞれ、物を取ったり触ったりした際に画像を変更する関数
     //------------------------------------------------------------------//
 
+    void BedChangeSprite()
+    {
+        if (gender == 0)
+        {
+            BedSpriteRenderer.sprite = BedPut;
+            ;
+        }
+        else if (gender == 1)
+        {
+            BedSpriteRenderer.sprite = BedPutLady;
+        }
+
+    }
+
+    void SidetableChangeSprite()
+    {
+        if (gender == 0)
+        {
+            SidetableSpriteRenderer.sprite = SidetablePut;
+
+        }
+        else if (gender == 1)
+        {
+            SidetableSpriteRenderer.sprite = SidetablePutLady;
+        }
+
+    }
+    void DeskChangeSprite()
+    {
+        if (gender == 0)
+        {
+            DeskSpriteRenderer.sprite = DeskPut;
+        }
+        else if (gender == 1)
+        {
+            DeskSpriteRenderer.sprite = DeskPutLady;
+        }
+    }
+
     //箪笥のアニメーション
     void ChestChangeSprite()
     {
@@ -576,5 +664,19 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+    }
+    void DoorChangeSprite()
+    {
+        if (gender == 0)
+        {
+            doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
+            DoorSpriteRenderer.sprite = DoorPut;
+        }
+        else if (gender == 1)
+        {
+            doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
+            DoorSpriteRenderer.sprite = DoorPutLady;
+        }
+
     }
 }

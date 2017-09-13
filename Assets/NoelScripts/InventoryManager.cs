@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class InventoryManager : MonoBehaviour {
+public class InventoryManager : MonoBehaviour
+{
 
     private int[] inventorySlot;
     private bool triggerRender;
@@ -34,7 +35,7 @@ public class InventoryManager : MonoBehaviour {
     private GameObject playerChar;
     private Image tapper;
     private int tapDelay;
-    
+
     private GameObject playerResponse;
     private int imageTimer;
     private Vector3 lastClickedPos;
@@ -43,9 +44,9 @@ public class InventoryManager : MonoBehaviour {
     private int prevSlot;
     private int prevItem;
 
-    private bool gotToolbox=false;
-    private bool gotPillow=false;
-    private bool gotMug=false;
+    public bool gotToolbox = false;
+    public bool gotPillow = false;
+    public bool gotMug = false;
 
     private int awakeTimer;
 
@@ -91,10 +92,11 @@ public class InventoryManager : MonoBehaviour {
 
         awakeTimer = 60;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if(awakeTimer == 0)
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (awakeTimer == 0)
         {
             dialogWindow.AddDialog(ProgressionManager.Instance.CurrentProgression);
             awakeTimer--;
@@ -104,7 +106,7 @@ public class InventoryManager : MonoBehaviour {
             awakeTimer--;
         }
 
-        if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 1)
+        if (GameObject.Find("Player").GetComponent<PlayerController>().gender == 1)
         {
             invbackground.GetComponent<Image>().sprite = GameObject.Find("area2").GetComponent<Image>().sprite;
         }
@@ -112,7 +114,7 @@ public class InventoryManager : MonoBehaviour {
         {
             invbackground.GetComponent<Image>().sprite = GameObject.Find("area3").GetComponent<Image>().sprite;
         }
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (Input.mousePosition.x > 0.84 * Screen.width)
             {
@@ -122,7 +124,7 @@ public class InventoryManager : MonoBehaviour {
 
         if (Input.GetMouseButtonUp(0) && dragging == true)
         {
-            if(checkUsable(prevItem, true))
+            if (checkUsable(prevItem, true))
             {
                 useItem(prevSlot - 1);
                 rerenderButtons();
@@ -132,11 +134,11 @@ public class InventoryManager : MonoBehaviour {
                 releaseObject();
                 rerenderButtons();
             }
-            
+
             dragging = false;
         }
-        
-        if(dragging == true)
+
+        if (dragging == true)
         {
             GameObject.Find("SlotTemp").transform.position = Input.mousePosition;
         }
@@ -144,7 +146,12 @@ public class InventoryManager : MonoBehaviour {
         {
             GameObject.Find("SlotTemp").transform.position = new Vector3(9999, 9999, 9999);
         }
-        
+
+        if (playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350 && ProgressionManager.Instance.CurrentProgression != "PlayerClicksOnScreen" && gotToolbox == false)
+        {
+            ProgressionManager.Instance.ChangeProgression("PlayerClicksOnScreen");
+        }
+
         if (triggerRender == true)
         {
             rerenderButtons();
@@ -152,9 +159,9 @@ public class InventoryManager : MonoBehaviour {
         }
 
         //inventory popup
-        if(cannotUsePop == 1)
+        if (cannotUsePop == 1)
         {
-            if(cannotUseBox.transform.position.y < -60)
+            if (cannotUseBox.transform.position.y < -60)
             {
                 cannotUsePop = 0;
             }
@@ -163,9 +170,9 @@ public class InventoryManager : MonoBehaviour {
                 cannotUseBox.transform.Translate(0, Mathf.Sin((180 - cannotUseBox.transform.position.y + 60) * Mathf.Deg2Rad) - 1, 0);
             }
         }
-        else if(cannotUsePop == 2)
+        else if (cannotUsePop == 2)
         {
-            if(cannotUseBox.transform.position.y > 120)
+            if (cannotUseBox.transform.position.y > 120)
             {
                 cannotUsePop = 1;
             }
@@ -184,14 +191,14 @@ public class InventoryManager : MonoBehaviour {
             }
             else
             {
-                wardrobeSelection.transform.Translate(0, Mathf.Sin(((wardrobeSelection.transform.position.y + 90.0f) * 0.2f) * Mathf.Deg2Rad)  *0.01f - 6, 0);
+                wardrobeSelection.transform.Translate(0, Mathf.Sin(((wardrobeSelection.transform.position.y + 90.0f) * 0.2f) * Mathf.Deg2Rad) * 0.01f - 6, 0);
             }
         }
         else if (openWardrobe == 2)
         {
             if (wardrobeSelection.transform.position.y < 360)
             {
-                wardrobeSelection.transform.Translate(0, -Mathf.Sin(((wardrobeSelection.transform.position.y + 90.0f) * 0.2f) * Mathf.Deg2Rad) *0.01f + 4, 0);
+                wardrobeSelection.transform.Translate(0, -Mathf.Sin(((wardrobeSelection.transform.position.y + 90.0f) * 0.2f) * Mathf.Deg2Rad) * 0.01f + 4, 0);
             }
         }
 
@@ -232,7 +239,7 @@ public class InventoryManager : MonoBehaviour {
         {
             GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("DoorLock");
         }
-        if(Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
         {
             testDialog();
         }
@@ -250,11 +257,11 @@ public class InventoryManager : MonoBehaviour {
             tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(10.0f, 10.0f);
             tapDelay = 0;
         }
-        else if(tapDelay > 1)
+        else if (tapDelay > 1)
         {
             tapDelay--;
         }
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             lastClickedPos = Input.mousePosition;
@@ -266,7 +273,7 @@ public class InventoryManager : MonoBehaviour {
             tapper.GetComponent<RectTransform>().sizeDelta = new Vector2(tapper.transform.GetComponent<RectTransform>().sizeDelta.x + 10.0f, tapper.transform.GetComponent<RectTransform>().sizeDelta.y + 10.0f);
         }
 
-        if(imageTimer > 0)
+        if (imageTimer > 0)
         {
             imageTimer--;
             if (playerResponse.GetComponent<SpriteRenderer>().color.a < 1.0f)
@@ -286,13 +293,13 @@ public class InventoryManager : MonoBehaviour {
     // Add item to inventory
     public void addItem(int id)
     {
-        for(int i = 0; i < 12; i++)
+        for (int i = 0; i < 12; i++)
         {
-            if(inventorySlot[i] == 0)
+            if (inventorySlot[i] == 0)
             {
                 inventorySlot[i] = id;
                 triggerRender = true;
-                switch(id)
+                switch (id)
                 {
                     case 1:
                         gotToolbox = true;
@@ -313,7 +320,7 @@ public class InventoryManager : MonoBehaviour {
     // Use item
     public void useItem(int slot)
     {
-        if(inventorySlot[slot] != 0)
+        if (inventorySlot[slot] != 0)
         {
             if (checkUsable(slot) == true)
             {
@@ -333,11 +340,11 @@ public class InventoryManager : MonoBehaviour {
     // Shift inventory
     public void shiftInventory()
     {
-        for(int i = 0; i < 12; i++)
+        for (int i = 0; i < 12; i++)
         {
-            if(inventorySlot[i] == 0)
+            if (inventorySlot[i] == 0)
             {
-                for(int j = i; j < 11; j++)
+                for (int j = i; j < 11; j++)
                 {
                     inventorySlot[j] = inventorySlot[j + 1];
                 }
@@ -354,7 +361,7 @@ public class InventoryManager : MonoBehaviour {
         {
             string myNewString = "Slot" + (i + 1);
             renderButton = GameObject.Find(myNewString);
-            switch(inventorySlot[i])
+            switch (inventorySlot[i])
             {
                 case 0:
                     renderButton.GetComponent<Image>().sprite = slotEmpty;
@@ -363,7 +370,7 @@ public class InventoryManager : MonoBehaviour {
                     renderButton.GetComponent<Image>().sprite = slotTools;
                     break;
                 case 2:
-                    if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 0)
+                    if (GameObject.Find("Player").GetComponent<PlayerController>().gender == 0)
                     {
                         renderButton.GetComponent<Image>().sprite = slotPillowBoy;
                     }
@@ -382,13 +389,13 @@ public class InventoryManager : MonoBehaviour {
     // Check if the item can be used
     bool checkUsable(int slot)
     {
-        if(inventorySlot[slot] > 0 && playerChar != null)
+        if (inventorySlot[slot] > 0 && playerChar != null)
         {
-            switch(inventorySlot[slot])
+            switch (inventorySlot[slot])
             {
                 case 1:
                     // Toolbox
-                    if(playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
+                    if (playerChar.transform.position.y < 45 && playerChar.transform.position.x > 350)
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                         Debug.Log("Can Use toolbox");
@@ -407,7 +414,7 @@ public class InventoryManager : MonoBehaviour {
                     // Pillow
                     return false;
                 case 3:
-                    if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
+                    if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250 && gotPillow == true && searchInventory(2) == false)
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                         Debug.Log("Can Use cup");
@@ -447,7 +454,7 @@ public class InventoryManager : MonoBehaviour {
                 // Pillow
                 return false;
             case 3:
-                if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250)
+                if (playerChar.transform.position.y > 220 && playerChar.transform.position.x < 250 && gotPillow == true && searchInventory(2) == false)
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
@@ -467,9 +474,9 @@ public class InventoryManager : MonoBehaviour {
 
     public void selectWardrobeMenu(int clothesOrTools)
     {
-            if (lockDown == true)
+        if (lockDown == true)
         {
-            if(clothesOrTools == 2 && EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite != slotEmpty)
+            if (clothesOrTools == 2 && EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite != slotEmpty)
             {
                 addItem(1);
                 openWardrobe = 1;
@@ -483,7 +490,7 @@ public class InventoryManager : MonoBehaviour {
         }
         else
         {
-            if(clothesOrTools == 1 && EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite != slotEmpty)
+            if (clothesOrTools == 1 && EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite != slotEmpty)
             {
                 EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite = slotEmpty;
                 openWardrobe = 1;
@@ -511,16 +518,16 @@ public class InventoryManager : MonoBehaviour {
             string myNewString = "Slot" + (i + 1);
             renderButton = GameObject.Find(myNewString);
             float distance = Vector3.Distance(renderButton.transform.position, Input.mousePosition);
-            if(shortestSlot == 0 || shortestDistance > distance)
+            if (shortestSlot == 0 || shortestDistance > distance)
             {
                 shortestSlot = i + 1;
                 shortestDistance = distance;
             }
         }
 
-        if (inventorySlot[shortestSlot-1] != 0)
+        if (inventorySlot[shortestSlot - 1] != 0)
         {
-            switch(GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite.name)
+            switch (GameObject.Find("Slot" + shortestSlot).GetComponent<Image>().sprite.name)
             {
                 case "mug1":
                     GameObject.Find("SlotTemp").GetComponent<Image>().sprite = slotCupDragging;
@@ -567,7 +574,7 @@ public class InventoryManager : MonoBehaviour {
         cannotUsePop = 2;
         if (inventorySlot[shortestSlot - 1] == 0)
         {
-            GameObject.Find("SlotTemp").transform.position = new Vector3(9999,9999,9999);
+            GameObject.Find("SlotTemp").transform.position = new Vector3(9999, 9999, 9999);
             dragging = false;
 
             string myNewString = "Slot" + shortestSlot;
@@ -586,7 +593,7 @@ public class InventoryManager : MonoBehaviour {
 
     public void checkAdd(int id)
     {
-        if(id == 1 && gotToolbox == true)
+        if (id == 1 && gotToolbox == true)
         {
             return;
         }
@@ -594,12 +601,12 @@ public class InventoryManager : MonoBehaviour {
         {
             return;
         }
-        if(id == 3 && gotMug == true)
+        if (id == 3 && gotMug == true)
         {
             return;
         }
 
-        switch(id)
+        switch (id)
         {
             case 1:
                 GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPickup");
@@ -618,5 +625,17 @@ public class InventoryManager : MonoBehaviour {
     public void testDialog()
     {
         dialogWindow.AddDialog(ProgressionManager.Instance.CurrentProgression);
+    }
+
+    public bool searchInventory(int id)
+    {
+        for (int i = 0; i < 12; i++)
+        {
+            if (inventorySlot[i] == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
