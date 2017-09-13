@@ -7,15 +7,19 @@ public class LanguageSelectionPanel : MonoBehaviour {
   public delegate void ValueChangeEvent(Toggle newActive);
   public event ValueChangeEvent onValueChange;
 
+  [SerializeField]
+  private GameObject panel;
+
   private ToggleGroup toggleGroup;
   private string selectedLanguage;
 
   private void Awake() {
     toggleGroup = GetComponent<ToggleGroup>();
-    selectedLanguage = toggleGroup.ActiveToggles().FirstOrDefault().name;
   }
 
   public void Start() {
+    selectedLanguage = toggleGroup.ActiveToggles().FirstOrDefault().name;
+
     foreach (Transform transformToggle in gameObject.transform) {
       var toggle = transformToggle.GetComponent<Toggle>();
       if (toggle == null) continue;
@@ -32,6 +36,7 @@ public class LanguageSelectionPanel : MonoBehaviour {
   }
 
   public void Submit() {
+    panel.SetActive(false);
     gameObject.SetActive(false);
     LocalizationManager.Instance.ChangeLanguage(selectedLanguage);
   }
