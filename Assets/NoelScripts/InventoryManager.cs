@@ -48,6 +48,11 @@ public class InventoryManager : MonoBehaviour
     public bool gotPillow = false;
     public bool gotMug = false;
 
+    private bool plantTriggered = false;
+    private bool chestTriggered = false;
+
+    private float distanceTravelled;
+
     private int awakeTimer;
 
     [SerializeField]
@@ -90,12 +95,44 @@ public class InventoryManager : MonoBehaviour
         slotCupDragging = GameObject.Find("SlotMugDragging").GetComponent<Image>().sprite;
         invbackground = GameObject.Find("area");
 
-        awakeTimer = 60;
+        awakeTimer = 30;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (plantTriggered == false)
+        {
+            if (Vector3.Distance(GameObject.Find("planter").transform.position, GameObject.Find("Player").transform.position) < 100)
+            {
+                ProgressionManager.Instance.ChangeProgression("PlayerInteractsWithPlant");
+                plantTriggered = true;
+            }
+        }
+        else
+        {
+            if (Vector3.Distance(GameObject.Find("planter").transform.position, GameObject.Find("Player").transform.position) > 100)
+            {
+                plantTriggered = false;
+            }
+        }
+
+        if (chestTriggered == false)
+        {
+            if (Vector3.Distance(GameObject.Find("chest").transform.position, GameObject.Find("Player").transform.position) < 50)
+            {
+                ProgressionManager.Instance.ChangeProgression("PlayerWalksOverToCupboard");
+                chestTriggered = true;
+            }
+        }
+        else
+        {
+            if (Vector3.Distance(GameObject.Find("chest").transform.position, GameObject.Find("Player").transform.position) > 50)
+            {
+                chestTriggered = false;
+            }
+        }
+
         if (awakeTimer == 0)
         {
             dialogWindow.AddDialog(ProgressionManager.Instance.CurrentProgression);
@@ -119,6 +156,19 @@ public class InventoryManager : MonoBehaviour
             if (Input.mousePosition.x > 0.84 * Screen.width)
             {
                 pickupObject();
+            }
+            else
+            {
+                distanceTravelled += Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition);
+                if (Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition) > 250)
+                {
+                    ProgressionManager.Instance.ChangeProgression("PlayerMovesToOtherSide");
+                }
+                else if(distanceTravelled > 3000)
+                {
+                    ProgressionManager.Instance.ChangeProgression("StartLookingAroundTheRoom");
+                    distanceTravelled = 0;
+                }
             }
         }
 
