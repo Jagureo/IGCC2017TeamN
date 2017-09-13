@@ -267,8 +267,19 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
-                                doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
-                                DoorSpriteRenderer.sprite = DoorPut;
+                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens")
+                                {
+                                    doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
+                                    DoorSpriteRenderer.sprite = DoorPut;
+                                }
+                                else if(ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoorAgain");
+                                }
+                                else if(ProgressionManager.Instance.CurrentProgression != "PlayerOpenTheDoorAgain")
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoor");
+                                }
                                 break;
                         }
                         tagName = null;
@@ -300,8 +311,19 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(1);
                                 break;
                             case "door":
-                                doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
-                                DoorSpriteRenderer.sprite = DoorPutLady;
+                                if (ProgressionManager.Instance.CurrentProgression == "DoorOpens")
+                                {
+                                    doors[0].transform.position = new Vector3(437.5f, doors[0].transform.position.y);
+                                    DoorSpriteRenderer.sprite = DoorPutLady;
+                                }
+                                else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoorAgain");
+                                }
+                                else if (ProgressionManager.Instance.CurrentProgression != "PlayerOpenTheDoorAgain")
+                                {
+                                    ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoor");
+                                }
                                 break;
                         }
                         tagName = null;
