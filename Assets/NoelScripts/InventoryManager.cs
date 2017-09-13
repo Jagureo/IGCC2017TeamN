@@ -160,11 +160,11 @@ public class InventoryManager : MonoBehaviour
             else
             {
                 distanceTravelled += Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition);
-                if (Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition) > 250)
+                if (Vector3.Distance(GameObject.Find("Player").transform.position, Input.mousePosition) > 0.2f * Screen.width)
                 {
                     ProgressionManager.Instance.ChangeProgression("PlayerMovesToOtherSide");
                 }
-                else if(distanceTravelled > 3000)
+                else if(distanceTravelled > 2.0f* Screen.width)
                 {
                     ProgressionManager.Instance.ChangeProgression("StartLookingAroundTheRoom");
                     distanceTravelled = 0;
