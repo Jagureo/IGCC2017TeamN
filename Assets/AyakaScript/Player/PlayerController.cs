@@ -292,6 +292,7 @@ public class PlayerController : MonoBehaviour
                                 sidetableGet = true;
                                 //SidetableSpriteRenderer.sprite = SidetablePut;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
+                                ProgressionManager.Instance.ChangeProgression("PlayerPicksUpMug");
                                 break;
                             case "desk":
                                 deskGet = true;
@@ -348,6 +349,7 @@ public class PlayerController : MonoBehaviour
                                 //SidetableSpriteRenderer.sprite = SidetablePutLady;
                                 sidetableGet = true;
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
+                                ProgressionManager.Instance.ChangeProgression("PlayerPicksUpMug");
                                 break;
                             case "desk":
                                 deskGet = true;
