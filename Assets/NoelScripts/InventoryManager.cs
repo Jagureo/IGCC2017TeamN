@@ -47,6 +47,11 @@ public class InventoryManager : MonoBehaviour {
     private bool gotPillow=false;
     private bool gotMug=false;
 
+    private int awakeTimer;
+
+    [SerializeField]
+    private DialogWindow dialogWindow;
+
     // Use this for initialization
     void Start()
     {
@@ -83,10 +88,22 @@ public class InventoryManager : MonoBehaviour {
         slotCup = GameObject.Find("SlotMug").GetComponent<Image>().sprite;
         slotCupDragging = GameObject.Find("SlotMugDragging").GetComponent<Image>().sprite;
         invbackground = GameObject.Find("area");
+
+        awakeTimer = 60;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if(awakeTimer == 0)
+        {
+            dialogWindow.AddDialog(ProgressionManager.Instance.CurrentProgression);
+            awakeTimer--;
+        }
+        else
+        {
+            awakeTimer--;
+        }
+
         if(GameObject.Find("Player").GetComponent<PlayerController>().gender == 1)
         {
             invbackground.GetComponent<Image>().sprite = GameObject.Find("area2").GetComponent<Image>().sprite;
@@ -214,6 +231,14 @@ public class InventoryManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.C))
         {
             GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("DoorLock");
+        }
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            testDialog();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
         }
 #endif
 
@@ -367,6 +392,7 @@ public class InventoryManager : MonoBehaviour {
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                         Debug.Log("Can Use toolbox");
+                        ProgressionManager.Instance.ChangeProgression("DoorOpens");
                         return true;
                     }
                     return false;
@@ -375,6 +401,7 @@ public class InventoryManager : MonoBehaviour {
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                         Debug.Log("Can Use pillow");
+                        ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
                         return true;
                     }
                     // Pillow
@@ -384,6 +411,7 @@ public class InventoryManager : MonoBehaviour {
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                         Debug.Log("Can Use cup");
+                        ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
                         return true;
                     }
                     // Cup
@@ -404,6 +432,7 @@ public class InventoryManager : MonoBehaviour {
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                     Debug.Log("Can Use toolbox");
+                    ProgressionManager.Instance.ChangeProgression("DoorOpens");
                     return true;
                 }
                 return false;
@@ -412,6 +441,7 @@ public class InventoryManager : MonoBehaviour {
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                     Debug.Log("Can Use pillow");
+                    ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
                     return true;
                 }
                 // Pillow
@@ -421,6 +451,7 @@ public class InventoryManager : MonoBehaviour {
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
+                    ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
                     return true;
                 }
                 // Cup
@@ -582,5 +613,10 @@ public class InventoryManager : MonoBehaviour {
         }
 
         addItem(id);
+    }
+
+    public void testDialog()
+    {
+        dialogWindow.AddDialog(ProgressionManager.Instance.CurrentProgression);
     }
 }
