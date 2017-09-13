@@ -4685,7 +4685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BedPut: {fileID: 21300000, guid: a69cb6ed903dac540909806ee1c54366, type: 3}
   SidetablePut: {fileID: 21300000, guid: 855f1ff4366ca7a408b161ff6eee1715, type: 3}
-  DeskPut: {fileID: 21300000, guid: b9bc43bec0f9e3e44bdf5dce7f026b2a, type: 3}
+  DeskPut: {fileID: 21300000, guid: 678754d2597c5b04498cab99616f9073, type: 3}
   ChestPut: {fileID: 21300000, guid: 18ddc20a941b8fd4b879ab7b3e5784d8, type: 3}
   Chest2Put: {fileID: 21300000, guid: 099771260658dac4fa3b6ef298f4cb78, type: 3}
   ToolboxPut: {fileID: 21300000, guid: d378b62e7c2707142aacf456f176e753, type: 3}
@@ -4694,20 +4694,20 @@ MonoBehaviour:
   FloorBoy: {fileID: 21300000, guid: 5fc57414a842da5419fe5edc2f0ceb30, type: 3}
   BedBoy: {fileID: 21300000, guid: 7c755dd32b3b9d4469365d9806c157fa, type: 3}
   SidetableBoy: {fileID: 21300000, guid: faf8def03155c4a41954aae49c5a732a, type: 3}
-  DeskBoy: {fileID: 21300000, guid: 678754d2597c5b04498cab99616f9073, type: 3}
+  DeskBoy: {fileID: 21300000, guid: b9bc43bec0f9e3e44bdf5dce7f026b2a, type: 3}
   ChestBoy: {fileID: 21300000, guid: 26c8ec1f197515c428cd3c265b1616b9, type: 3}
   ToolboxBoy: {fileID: 21300000, guid: ef50863797b8edd4ea2e31bcdc8b7f34, type: 3}
   DoorBoy: {fileID: 21300000, guid: b6a0ff24b37d37d4dbb30822305a0e84, type: 3}
   FloorLady: {fileID: 21300000, guid: a5dd075be6f2dc24bb1d1c78be13f886, type: 3}
   BedLady: {fileID: 21300000, guid: 34dd492d1e4c3bc43bae9616d78165b6, type: 3}
   SidetableLady: {fileID: 21300000, guid: 9286c03b8c71e59479dcf43905d43c23, type: 3}
-  DeskLady: {fileID: 21300000, guid: 264f8bc8b50c6f24eb413cc3047837c5, type: 3}
+  DeskLady: {fileID: 21300000, guid: 2e846d69e11e78746a678669a4505205, type: 3}
   ChestLady: {fileID: 21300000, guid: dce13a7645fb2e04d9366a4ca80c3f19, type: 3}
   ToolboxLady: {fileID: 21300000, guid: a678d58782632a340b1a6bbc103d7f45, type: 3}
   DoorLady: {fileID: 21300000, guid: 4595610da2918b44aa11e3dc90ee949c, type: 3}
   BedPutLady: {fileID: 21300000, guid: 613b6ee3a1e2507409b679b81b5407c2, type: 3}
   SidetablePutLady: {fileID: 21300000, guid: 8356f897fdd0cf14e9207431ea941d47, type: 3}
-  DeskPutLady: {fileID: 21300000, guid: 2e846d69e11e78746a678669a4505205, type: 3}
+  DeskPutLady: {fileID: 21300000, guid: 264f8bc8b50c6f24eb413cc3047837c5, type: 3}
   ChestPutLady: {fileID: 21300000, guid: 69ca7dfe50384b848bf71d9c3266e644, type: 3}
   Chest2PutLady: {fileID: 21300000, guid: 3bbcc823fd644974b90b89d6d7508a8f, type: 3}
   ToolboxPutLady: {fileID: 21300000, guid: a6ab65ae1de1e4345ad72a466c197824, type: 3}

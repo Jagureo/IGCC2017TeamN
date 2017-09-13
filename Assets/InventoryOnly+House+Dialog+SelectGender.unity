@@ -1394,6 +1394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a614b832f4a4682459f635c5f6f643ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gotToolbox: 0
+  gotPillow: 0
+  gotMug: 0
   dialogWindow: {fileID: 2056345473}
 --- !u!1 &571669758
 GameObject:
@@ -4013,6 +4016,10 @@ Prefab:
     - target: {fileID: 22416628, guid: 98ad8f4a1ade06943a36d6f39fc21658, type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22436504, guid: 98ad8f4a1ade06943a36d6f39fc21658, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98ad8f4a1ade06943a36d6f39fc21658, type: 2}

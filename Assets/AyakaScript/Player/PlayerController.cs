@@ -102,17 +102,11 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //画像変更用の各種設定関数
-        SpriteInitialize();
-
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
         //フラグはfalse
         right = false;
         left = false;
-
-        ////性別切り替え（0が男性、1が女性）
-        //gender = 2;
 
     }
 
@@ -133,13 +127,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("run 2", up);
         anim.SetBool("run 3", down);
 
-
-        ////移動中なら
-        //if (right)
-        //{
-        //    //anim.SetTrigger("run");
-        //}
-
         //左クリックしたら、そっちの方向に移動 
         if (Input.GetMouseButton(0))
         {
@@ -156,22 +143,7 @@ public class PlayerController : MonoBehaviour
 
                 // 自分とターゲットとなる相手との方向を求める
                 Vector3 direction = (this.transform.position - worldMousePos).normalized;
-
                 MoveAngle(direction);
-
-                //マウスの座標と現在の座標から、どの方向に動いているか確認
-                ////Left
-                //if (worldMousePos.x < transform.position.x)
-                //{
-                //    //移動開始
-                //    left = true;
-                //}
-                ////Right
-                //else
-                //{
-                //    //移動開始
-                //    right = true;
-                //}
 
                 //動く
                 iTween.MoveTo(this.gameObject, iTween.Hash(
@@ -182,26 +154,6 @@ public class PlayerController : MonoBehaviour
                     "easeType", "linear"));
             }
         }
-        //if (Input.GetMouseButton(0))
-        //{
-        //    //クリックして、オブジェクトがあったら
-        //    GameObject obj = getrightObject();
-        //    if (obj != null)
-        //    {
-        //        //タグが、衝突判定と同じタグだったら
-        //        if (obj.tag == tagName)
-        //        {
-        //            Debug.Log("取得");
-        //            tagName = null;
-        //        }
-        //    }
-
-        //}
-
-        //if(this.transform.position == worldMousePos)
-        //{
-        //    right = false;
-        //}
 
         //------------------------------------------------------------------//
         //画像切り替え用
