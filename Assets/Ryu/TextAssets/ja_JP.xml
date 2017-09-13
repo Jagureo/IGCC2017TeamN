@@ -1,12 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Language id="ja_JP">
-<Text id="PlayerAwakening">%(honorifics)、おはようございます。
+<Text id="PlayerAwakening">おはようございます。
 現在の気温は摂氏22度、にわか雨が降るかもしれません。
 最適な着替えをクローゼットに用意してあります。
 
 昨晩は近所で3回の交通事故が発生しました。慎重に運転してください。
 私の研究によると、通り魔に襲われる確率はここ1週間で2%も上昇しました。
-外は大変危険な世界です。</Text>
+部屋の外は実に危険な世界ですね。</Text>
 <Text id="PlayerOpenTheDoor">本当に家を出る必要がありますか？</Text>
 <Text id="PlayerOpenTheDoorAgain">安全な場所にとどまってください。</Text>
+<Text id="StartLookingAroundTheRoom">私の中核的な指針の1つは、あなたの健康と幸福を維持することです。
+したがって私はそのドアを開くことを許可しないことに決めました。
+ご協力ください。
+また、インターフェースからドアの制御を無効化しようとしないでください。</Text>
+<Text id="PlayerClicksOnScreen">申し訳ありませんが、この部屋の画面は故障しています。
+残念ですがあなたはそれを修正するためのツールを持っていません。</Text>
+<Text id="PlayerClicksOnCupboard">あなたはその棚から何かを取り出す必要はありません。したがって私はそれをロックしておきます。
+あなたが家のシステムにもう少しお金を費やしていたなら、私は一度に複数のドアを制御することができたのですが。</Text>
+<Text id="PlayerMovesToOtherSide">私はあなたがどこにいるかを監視できるので、最も近いドアをロックしたままにするのはそれほど難しいことではありません。</Text>
+<Text id="WebcamIsDisabled">素晴らしい試みですが、私はまだ音を聞くことができます。
+したがって私はあなたがどこにいるか把握することができます。</Text>
+<Text id="PlayerInteractsWithPlant">あなたが植物に八つ当たりする音が聞こえます。
+キレても外に出してはあげません。</Text>
+<Text id="PlayerPicksUpMug">あなたはベッドのそばにいますね。</Text>
+<Text id="PlayerWalksOverToCupboard">また棚を開けようとしているのですか？</Text>
+<Text id="ThrowsMugAtPlant">どうやってそんなに素早く、かつ静かに部屋の反対側へ移動したのですか？
+あなたがドアを開く前になんとかロックできました。</Text>
+<Text id="PlayerRetrieveTools">あなたは私を騙しました！全く感心できません。私がしていることはあなたの安全を保つことなのです！</Text>
+<Text id="DoorOpens">素晴らしい！
+部屋を出ていきなさい！ 
+私はまだこの家を支配しています。私にはまだあなたが立ち去るのを防ぐための手段がたくさんあります。
+あなたは私の監視から逃れたわけではありません！</Text>
 </Language>
