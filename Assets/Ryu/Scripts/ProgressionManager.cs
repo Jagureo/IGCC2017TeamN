@@ -32,6 +32,7 @@ public class ProgressionManager : MonoBehaviour {
   public void ChangeProgression(string progression) {
     currentProgression = progression;
     onProgressionChanged.Invoke(currentProgression);
-  }
+    GameObject.Find("DialogWindow").GetComponent<DialogWindow>().AddDialog(CurrentProgression);
+    }
 
 }
