@@ -59,6 +59,20 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     private DialogWindow dialogWindow;
 
+    private const string FACEBOOK_APP_ID = "911289349024995";
+    private const string FACEBOOK_URL = "http://www.facebook.com/dialog/feed";
+
+    void ShareToFacebook(string linkParameter, string nameParameter, string captionParameter, string descriptionParameter, string pictureParameter, string redirectParameter)
+    {
+        Application.OpenURL(FACEBOOK_URL + "?app_id=" + FACEBOOK_APP_ID +
+        "&link=" + WWW.EscapeURL(linkParameter) +
+        "&name=" + WWW.EscapeURL(nameParameter) +
+        "&caption=" + WWW.EscapeURL(captionParameter) +
+        "&description=" + WWW.EscapeURL(descriptionParameter) +
+        "&picture=" + WWW.EscapeURL(pictureParameter) +
+        "&redirect_uri=" + WWW.EscapeURL(redirectParameter));
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -309,6 +323,10 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            ShareToFacebook("www.google.com", "Testing Post", "CaptionPost", "Description", "www.google.com", "http://www.facebook.com/");
         }
 #endif
 
