@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
         right = false;
         left = false;
 
+        //画像読み込みの為の設定関数
         SpriteInitialize();
     }
 
