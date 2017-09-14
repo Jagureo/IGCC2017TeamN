@@ -57,6 +57,8 @@ public class InventoryManager : MonoBehaviour
     private int garbageTimer;
 
     private bool flyingMug;
+    public Sprite brokenMug;
+    public Sprite brokenPlant;
     Camera cam;
 
     [SerializeField]
@@ -132,6 +134,8 @@ public class InventoryManager : MonoBehaviour
             if (Vector3.Distance(GameObject.Find("SlotMug").transform.position, cam.WorldToScreenPoint(GameObject.Find("planter").transform.position)) < 30)
             {
                 flyingMug = false;
+                GameObject.Find("SlotMug").GetComponent<Image>().sprite = brokenMug;
+                GameObject.Find("planter").GetComponent<SpriteRenderer>().sprite = brokenPlant;
             }
         }
 
