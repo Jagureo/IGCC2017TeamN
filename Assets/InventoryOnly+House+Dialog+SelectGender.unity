@@ -844,6 +844,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &293204616 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11450006, guid: 98ad8f4a1ade06943a36d6f39fc21658,
+    type: 2}
+  m_PrefabInternal: {fileID: 1543463732}
+  m_Script: {fileID: 11500000, guid: baea1b35fc19c6f46a36195015ee7b5a, type: 3}
 --- !u!1001 &294076590
 Prefab:
   m_ObjectHideFlags: 0
@@ -1912,7 +1918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &767520750
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4071,10 +4077,6 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 22436504, guid: 98ad8f4a1ade06943a36d6f39fc21658, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 98ad8f4a1ade06943a36d6f39fc21658, type: 2}
   m_IsPrefabParent: 0
@@ -4746,14 +4748,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 29
       objectReference: {fileID: 0}
-    - target: {fileID: 423986, guid: 6afab707af63d34429e5e9140cee10aa, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.8795888
-      objectReference: {fileID: 0}
-    - target: {fileID: 423986, guid: 6afab707af63d34429e5e9140cee10aa, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.8795888
-      objectReference: {fileID: 0}
+    - target: {fileID: 11495228, guid: 6afab707af63d34429e5e9140cee10aa, type: 2}
+      propertyPath: onProgressionChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 293204616}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6afab707af63d34429e5e9140cee10aa, type: 2}
   m_IsPrefabParent: 0
