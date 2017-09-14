@@ -126,7 +126,12 @@ public class InventoryManager : MonoBehaviour
     {
         if(flyingMug == true)
         {
-            GameObject.Find("SlotMug").transform.Translate(new Vector3(11, -10, 0));
+            //GameObject.Find("SlotMug").transform.Translate(new Vector3(11, -10, 0));
+            var mug = GameObject.Find("SlotMug");
+            var planterPos = cam.WorldToScreenPoint(GameObject.Find("planter").transform.position + new Vector3(10.0f, 10.0f));
+            var direction = (planterPos - mug.transform.position).normalized;
+            mug.transform.Translate(direction * 10.0f);
+            
             //if(GameObject.Find("SlotMug").transform.position.x > 380 && GameObject.Find("SlotMug").transform.position.y < 50)
             //{
             //    flyingMug = false;
