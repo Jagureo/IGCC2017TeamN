@@ -764,7 +764,7 @@ GameObject:
   - 212: {fileID: 273578118}
   - 61: {fileID: 273578117}
   - 50: {fileID: 273578120}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door1
   m_TagString: door
   m_Icon: {fileID: 0}
@@ -822,7 +822,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273578116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.17, y: 0.46294832, z: 0}
+  m_LocalPosition: {x: 3.17, y: 0.46294832, z: -0.1}
   m_LocalScale: {x: 0.8274395, y: 0.82, z: 1}
   m_Children: []
   m_Father: {fileID: 1281874528}
@@ -2214,7 +2214,7 @@ GameObject:
   - 212: {fileID: 959351313}
   - 61: {fileID: 959351312}
   - 50: {fileID: 959351315}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: planter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2483,7 +2483,7 @@ GameObject:
   - 212: {fileID: 1030123335}
   - 61: {fileID: 1030123337}
   - 50: {fileID: 1030123338}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chest
   m_TagString: chest
   m_Icon: {fileID: 0}
@@ -2939,7 +2939,7 @@ GameObject:
   - 212: {fileID: 1250594853}
   - 61: {fileID: 1250594855}
   - 50: {fileID: 1250594856}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: screen1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3029,7 +3029,7 @@ GameObject:
   - 4: {fileID: 1281874528}
   - 212: {fileID: 1281874527}
   - 61: {fileID: 1281874529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: floor
   m_TagString: floor
   m_Icon: {fileID: 0}
@@ -3092,7 +3092,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1281874526}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -3292,7 +3292,7 @@ GameObject:
   - 212: {fileID: 1375545071}
   - 61: {fileID: 1375545070}
   - 50: {fileID: 1375545073}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bed
   m_TagString: Bed
   m_Icon: {fileID: 0}
@@ -4447,7 +4447,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1636559638}
   - 212: {fileID: 1636559637}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4627,7 +4627,7 @@ GameObject:
   - 212: {fileID: 1704416555}
   - 61: {fileID: 1704416554}
   - 50: {fileID: 1704416557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sidetable1
   m_TagString: sidetable
   m_Icon: {fileID: 0}
@@ -4910,7 +4910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BedPut: {fileID: 21300000, guid: a69cb6ed903dac540909806ee1c54366, type: 3}
   SidetablePut: {fileID: 21300000, guid: 855f1ff4366ca7a408b161ff6eee1715, type: 3}
-  DeskPut: {fileID: 21300000, guid: b9bc43bec0f9e3e44bdf5dce7f026b2a, type: 3}
+  DeskPut: {fileID: 21300000, guid: 678754d2597c5b04498cab99616f9073, type: 3}
   ChestPut: {fileID: 21300000, guid: 18ddc20a941b8fd4b879ab7b3e5784d8, type: 3}
   Chest2Put: {fileID: 21300000, guid: 099771260658dac4fa3b6ef298f4cb78, type: 3}
   ToolboxPut: {fileID: 21300000, guid: d378b62e7c2707142aacf456f176e753, type: 3}
@@ -4919,20 +4919,20 @@ MonoBehaviour:
   FloorBoy: {fileID: 21300000, guid: 08f60dc1679cf8744b4efd125b130b72, type: 3}
   BedBoy: {fileID: 21300000, guid: 7c755dd32b3b9d4469365d9806c157fa, type: 3}
   SidetableBoy: {fileID: 21300000, guid: faf8def03155c4a41954aae49c5a732a, type: 3}
-  DeskBoy: {fileID: 21300000, guid: 678754d2597c5b04498cab99616f9073, type: 3}
+  DeskBoy: {fileID: 21300000, guid: b9bc43bec0f9e3e44bdf5dce7f026b2a, type: 3}
   ChestBoy: {fileID: 21300000, guid: 26c8ec1f197515c428cd3c265b1616b9, type: 3}
   ToolboxBoy: {fileID: 21300000, guid: ef50863797b8edd4ea2e31bcdc8b7f34, type: 3}
   DoorBoy: {fileID: 21300000, guid: b6a0ff24b37d37d4dbb30822305a0e84, type: 3}
   FloorLady: {fileID: 21300000, guid: 83554140433097c42b356d65edc17bab, type: 3}
   BedLady: {fileID: 21300000, guid: 34dd492d1e4c3bc43bae9616d78165b6, type: 3}
   SidetableLady: {fileID: 21300000, guid: 9286c03b8c71e59479dcf43905d43c23, type: 3}
-  DeskLady: {fileID: 21300000, guid: 264f8bc8b50c6f24eb413cc3047837c5, type: 3}
+  DeskLady: {fileID: 21300000, guid: 2e846d69e11e78746a678669a4505205, type: 3}
   ChestLady: {fileID: 21300000, guid: dce13a7645fb2e04d9366a4ca80c3f19, type: 3}
   ToolboxLady: {fileID: 21300000, guid: a678d58782632a340b1a6bbc103d7f45, type: 3}
   DoorLady: {fileID: 21300000, guid: 4595610da2918b44aa11e3dc90ee949c, type: 3}
   BedPutLady: {fileID: 21300000, guid: 613b6ee3a1e2507409b679b81b5407c2, type: 3}
   SidetablePutLady: {fileID: 21300000, guid: 8356f897fdd0cf14e9207431ea941d47, type: 3}
-  DeskPutLady: {fileID: 21300000, guid: 2e846d69e11e78746a678669a4505205, type: 3}
+  DeskPutLady: {fileID: 21300000, guid: 264f8bc8b50c6f24eb413cc3047837c5, type: 3}
   ChestPutLady: {fileID: 21300000, guid: 56b90141bdc34114383ffff66aa4e4e8, type: 3}
   Chest2PutLady: {fileID: 21300000, guid: 3bbcc823fd644974b90b89d6d7508a8f, type: 3}
   ToolboxPutLady: {fileID: 21300000, guid: a6ab65ae1de1e4345ad72a466c197824, type: 3}
@@ -4949,6 +4949,7 @@ MonoBehaviour:
   up: 0
   down: 0
   collisionFlug: 0
+  pc: 0
 --- !u!95 &1817515198
 Animator:
   serializedVersion: 3
@@ -5172,7 +5173,7 @@ GameObject:
   - 212: {fileID: 1908124024}
   - 61: {fileID: 1908124026}
   - 50: {fileID: 1908124027}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: desk1
   m_TagString: desk
   m_Icon: {fileID: 0}
@@ -5359,7 +5360,7 @@ GameObject:
   - 212: {fileID: 1954251752}
   - 61: {fileID: 1954251751}
   - 50: {fileID: 1954251753}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: toolbox1
   m_TagString: toolbox
   m_Icon: {fileID: 0}
