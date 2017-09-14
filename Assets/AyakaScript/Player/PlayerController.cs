@@ -291,10 +291,12 @@ public class PlayerController : MonoBehaviour
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
                                 {
+                                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("LockedDoor1");
                                     ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoorAgain");
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression != "PlayerOpenTheDoorAgain")
                                 {
+                                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("LockedDoor2");
                                     ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoor");
                                 }
                                 break;
@@ -351,10 +353,12 @@ public class PlayerController : MonoBehaviour
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression == "PlayerOpenTheDoor")
                                 {
+                                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("LockedDoor1");
                                     ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoorAgain");
                                 }
                                 else if (ProgressionManager.Instance.CurrentProgression != "PlayerOpenTheDoorAgain")
                                 {
+                                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("LockedDoor2");
                                     ProgressionManager.Instance.ChangeProgression("PlayerOpenTheDoor");
                                 }
                                 break;
