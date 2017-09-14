@@ -47,9 +47,9 @@ public class soundPlayer : MonoBehaviour
             AudioList.Add("MugPlace", Resources.Load("368614__bumblefly__cup-01", typeof(AudioClip)) as AudioClip);
             AudioList.Add("PlasticRustle", Resources.Load("377534__13fpanska-machacova-petra__rustling", typeof(AudioClip)) as AudioClip);
             AudioList.Add("DoorLock", Resources.Load("397314__designdean__double-door-lock", typeof(AudioClip)) as AudioClip);
+            AudioList.Add("BGM", Resources.Load("BackGroundMusic", typeof(AudioClip)) as AudioClip);
             b_InitialLoad = true;
         }
-
     }
 
     public void PlaySoundEffect(string name)
