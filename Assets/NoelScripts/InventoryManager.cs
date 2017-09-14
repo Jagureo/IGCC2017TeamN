@@ -283,8 +283,9 @@ public class InventoryManager : MonoBehaviour
 #if UNITY_ANDROID
         if(Input.touches.Length == 3)
         {
-            addItem(Random.Range(1, 3));
-            openWardrobeMenu();
+            //addItem(Random.Range(1, 3));
+            //openWardrobeMenu();
+            ShareToFacebook("www.google.com", "Testing Post", "CaptionPost", "Description", "www.google.com", "http://www.facebook.com/");
             triggerPlayerQuestionMark();
         }
 #else
