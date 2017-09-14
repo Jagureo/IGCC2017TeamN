@@ -6,13 +6,21 @@ using System.Collections.Generic;
 
 public class DialogWindow : MonoBehaviour {
   private ScrollRect scrollRect;
+  private Image image;
 
   [SerializeField]
   private GameObject dialogNode;
+  [SerializeField]
+  private Sprite brokenSprite;
 
   private void Awake() {
     scrollRect = GetComponent<ScrollRect>();
-    }
+    image = GetComponent<Image>();
+  }
+
+  public void BreakWindow() {
+    image.sprite = brokenSprite;
+  }
 
   public void AddDialog(string str) {
     var node = Instantiate(dialogNode);

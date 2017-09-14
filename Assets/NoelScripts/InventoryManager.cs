@@ -56,6 +56,9 @@ public class InventoryManager : MonoBehaviour
     private int awakeTimer;
     private int garbageTimer;
 
+    private bool flyingMug;
+    Camera cam;
+
     [SerializeField]
     private DialogWindow dialogWindow;
 
@@ -112,11 +115,26 @@ public class InventoryManager : MonoBehaviour
 
         awakeTimer = 30;
         garbageTimer = 60;
+        flyingMug = false;
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(flyingMug == true)
+        {
+            GameObject.Find("SlotMug").transform.Translate(new Vector3(11, -10, 0));
+            //if(GameObject.Find("SlotMug").transform.position.x > 380 && GameObject.Find("SlotMug").transform.position.y < 50)
+            //{
+            //    flyingMug = false;
+            //}
+            if (Vector3.Distance(GameObject.Find("SlotMug").transform.position, cam.WorldToScreenPoint(GameObject.Find("planter").transform.position)) < 30)
+            {
+                flyingMug = false;
+            }
+        }
+
         if(garbageTimer < 0)
         {
             garbageTimer = 60;
@@ -126,7 +144,6 @@ public class InventoryManager : MonoBehaviour
         {
             garbageTimer--;
         }
-
 
         if (plantTriggered == false)
         {
@@ -523,7 +540,7 @@ public class InventoryManager : MonoBehaviour
         {
             case 1:
                 // Toolbox
-                if (playerChar.transform.position.y < 55 && playerChar.transform.position.x > 340)
+                if (playerChar.transform.position.y < 65 && playerChar.transform.position.x > 320)
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                     Debug.Log("Can Use toolbox");
@@ -533,7 +550,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 return false;
             case 2:
-                if (playerChar.transform.position.y > 210 && playerChar.transform.position.x > 350)
+                if (playerChar.transform.position.y > 190 && playerChar.transform.position.x > 320)
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                     Debug.Log("Can Use pillow");
@@ -544,12 +561,15 @@ public class InventoryManager : MonoBehaviour
                 // Pillow
                 return false;
             case 3:
-                if (playerChar.transform.position.y > 210 && playerChar.transform.position.x < 260 && gotPillow == true && searchInventory(2) == false)
+                if (playerChar.transform.position.y > 210 && playerChar.transform.position.x < 230 && gotPillow == true && searchInventory(2) == false)
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
                     player.planter = true;
                     ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
+                    GameObject.Find("SlotMug").transform.position = cam.WorldToScreenPoint(GameObject.Find("Player").transform.position);
+                    GameObject.Find("SlotMug").transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                    flyingMug = true;
                     return true;
                 }
                 // Cup
