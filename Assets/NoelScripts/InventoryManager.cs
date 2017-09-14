@@ -128,7 +128,7 @@ public class InventoryManager : MonoBehaviour
         {
             //GameObject.Find("SlotMug").transform.Translate(new Vector3(11, -10, 0));
             var mug = GameObject.Find("SlotMug");
-            var planterPos = cam.WorldToScreenPoint(GameObject.Find("planter").transform.position + new Vector3(10.0f, 10.0f));
+            var planterPos = cam.WorldToScreenPoint(GameObject.Find("planter").transform.position + new Vector3(5.0f, 5.0f));
             var direction = (planterPos - mug.transform.position).normalized;
             mug.transform.Translate(direction * 10.0f);
             
