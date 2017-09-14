@@ -130,85 +130,77 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("run 2", up);
             anim.SetBool("run 3", down);
 
-        //左クリックしたら、そっちの方向に移動 
-        if (Input.GetMouseButton(0))
-        {
-            GameObject obj = getrightObject();
-                if (obj != null)
+            //左クリックしたら、そっちの方向に移動 
+            if (Input.GetMouseButton(0))
+            {
+                if (!collisionFlug)
                 {
-                    if (obj.tag == "floor")
-                    {
-                        // 以下オブジェクトがクリックされた時の処理
-                        //if (!collisionFlug)
-                        //{
-                        ////移動開始
-                        //right = true;
-                        //クリックした位置を目標位置に設定
-                        targetPos = Input.mousePosition;
+                    ////移動開始
+                    //right = true;
+                    //クリックした位置を目標位置に設定
+                    targetPos = Input.mousePosition;
 
-                        //ワールド座標に変換
-                        worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
-                        worldMousePos.z = 10f;
+                    //ワールド座標に変換
+                    worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
+                    worldMousePos.z = 10f;
 
-                        // 自分とターゲットとなる相手との方向を求める
-                        Vector3 direction = (this.transform.position - worldMousePos).normalized;
-                        MoveAngle(direction);
+                    // 自分とターゲットとなる相手との方向を求める
+                    Vector3 direction = (this.transform.position - worldMousePos).normalized;
+                    MoveAngle(direction);
 
-                        //動く
-                        iTween.MoveTo(this.gameObject, iTween.Hash(
-                            "position", worldMousePos,
-                            "time", 0.5f,
-                            "oncomplete", "OnCompleteCallback",
-                            "oncompletetarget", this.gameObject,
-                            "easeType", "linear"));
-                        //}
-                    }
+                    //動く
+                    iTween.MoveTo(this.gameObject, iTween.Hash(
+                        "position", worldMousePos,
+                        "time", 0.5f,
+                        "oncomplete", "OnCompleteCallback",
+                        "oncompletetarget", this.gameObject,
+                        "easeType", "linear"));
                 }
             }
         }
 
-                //------------------------------------------------------------------//
-                //画像切り替え用
-                //------------------------------------------------------------------//
+        //------------------------------------------------------------------//
+        //画像切り替え用
+        //------------------------------------------------------------------//
 
-                //ベッド
-                if (bedGet)
-                {
-                    BedChangeSprite();
-                }
-                //サイドテーブル
-                if (sidetableGet)
-                {
-                    SidetableChangeSprite();
-                }
-                //机
-                if (deskGet)
-                {
-                    DeskChangeSprite();
-                }
+        //ベッド
+        if (bedGet)
+        {
+            BedChangeSprite();
+        }
+        //サイドテーブル
+        if (sidetableGet)
+        {
+            SidetableChangeSprite();
+        }
+        //机
+        if (deskGet)
+        {
+            DeskChangeSprite();
+        }
 
-                //棚のアニメーション
-                if (chestGet)
-                {
-                    ChestChangeSprite();
-                }
-                //ツールボックスのアニメーション
-                if (toolboxGet)
-                {
-                    ToolboxChangeSprite();
-                }
-                //ドア
-                if (doorGet)
-                {
-                    DoorChangeSprite();
-                }
+        //棚のアニメーション
+        if (chestGet)
+        {
+            ChestChangeSprite();
+        }
+        //ツールボックスのアニメーション
+        if (toolboxGet)
+        {
+            ToolboxChangeSprite();
+        }
+        //ドア
+        if (doorGet)
+        {
+            DoorChangeSprite();
+        }
 
-                //壁処理（Mashf.Clamp(制限する座標値, 最小値, 最大値)
-                this.transform.position = (new Vector3(Mathf.Clamp(this.transform.position.x, wall_Left, wall_Right),
-                   Mathf.Clamp(this.transform.position.y, wall_Bottom, wall_Top),
-                   this.transform.position.z));
-            }
-    
+        //壁処理（Mashf.Clamp(制限する座標値, 最小値, 最大値)
+        this.transform.position = (new Vector3(Mathf.Clamp(this.transform.position.x, wall_Left, wall_Right),
+           Mathf.Clamp(this.transform.position.y, wall_Bottom, wall_Top),
+           this.transform.position.z));
+    }
+
     //動くのが終わった後に呼ばれる関数
     void OnCompleteCallback()
     {
@@ -549,7 +541,6 @@ public class PlayerController : MonoBehaviour
         if (gender == 0)
         {
             BedSpriteRenderer.sprite = BedPut;
-            ;
         }
         else if (gender == 1)
         {
