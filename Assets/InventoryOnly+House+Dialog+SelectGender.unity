@@ -2216,7 +2216,7 @@ GameObject:
   - 50: {fileID: 959351315}
   m_Layer: 8
   m_Name: planter
-  m_TagString: Untagged
+  m_TagString: planter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4909,6 +4909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScreenPut: {fileID: 21300000, guid: 3f76700b48dcf3345bbe4e41051cda88, type: 3}
+  PlanterPut: {fileID: 21300000, guid: 57b732458456331468ef1b2a02b69437, type: 3}
   BedPut: {fileID: 21300000, guid: a69cb6ed903dac540909806ee1c54366, type: 3}
   SidetablePut: {fileID: 21300000, guid: 855f1ff4366ca7a408b161ff6eee1715, type: 3}
   DeskPut: {fileID: 21300000, guid: 70042ce1d1ce8da4fb7f534689edf705, type: 3}
@@ -4954,6 +4955,7 @@ MonoBehaviour:
   collisionFlug: 0
   pc: 0
   screen: 0
+  planter: 0
 --- !u!95 &1817515198
 Animator:
   serializedVersion: 3

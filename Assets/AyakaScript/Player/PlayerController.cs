@@ -12,10 +12,11 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer ToolboxSpriteRenderer;
     SpriteRenderer DoorSpriteRenderer;
     SpriteRenderer ChairSpriteRenderer;
-
+    SpriteRenderer PlanterSpriteRenderer;
     SpriteRenderer ScreenSpriteRenderer;
 
     public Sprite ScreenPut;
+    public Sprite PlanterPut;
     public Sprite BedPut;
     public Sprite SidetablePut;
     public Sprite DeskPut;
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour
     GameObject[] doors;
     GameObject[] screens;
     GameObject[] chairs;
+    GameObject[] planters;
 
 
     //それぞれ、物を取得したかどうかの確認フラグ
@@ -110,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
     public bool pc;
     public bool screen;
+    public bool planter;
 
     //性別をセレクトされたかどうか
     bool genderSelectFlug = false;
@@ -119,6 +122,7 @@ public class PlayerController : MonoBehaviour
     {
         pc = false;
         screen = false;
+        planter = false;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
         //フラグはfalse
@@ -205,6 +209,11 @@ public class PlayerController : MonoBehaviour
         if(screen)
         {
             ScreenChangeSprite();
+        }
+        //プランター
+        if(planter)
+        {
+            PlanterChangeSprite();
         }
 
         //棚のアニメーション
@@ -520,6 +529,8 @@ public class PlayerController : MonoBehaviour
         doors = GameObject.FindGameObjectsWithTag("door");
         screens = GameObject.FindGameObjectsWithTag("screen");
         chairs = GameObject.FindGameObjectsWithTag("chair");
+        planters = GameObject.FindGameObjectsWithTag("planter");
+
 
         // このobjectのSpriteRendererを取得
         FloorSpriteRenderer = floors[0].GetComponent<SpriteRenderer>();
@@ -531,7 +542,7 @@ public class PlayerController : MonoBehaviour
         DoorSpriteRenderer = doors[0].GetComponent<SpriteRenderer>();
         ScreenSpriteRenderer = screens[0].GetComponent<SpriteRenderer>();
         ChairSpriteRenderer = chairs[0].GetComponent<SpriteRenderer>();
-
+        PlanterSpriteRenderer = planters[0].GetComponent<SpriteRenderer>();
 
     }
 
@@ -617,6 +628,10 @@ public class PlayerController : MonoBehaviour
         ScreenSpriteRenderer.sprite = ScreenPut;
     }
 
+    void PlanterChangeSprite()
+    {
+        PlanterSpriteRenderer.sprite = PlanterPut;
+    }
 
     //箪笥のアニメーション
     void ChestChangeSprite()

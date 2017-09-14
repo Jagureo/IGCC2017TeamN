@@ -13,6 +13,7 @@ TagManager:
   - floor
   - screen
   - chair
+  - planter
   layers:
   - Default
   - TransparentFX

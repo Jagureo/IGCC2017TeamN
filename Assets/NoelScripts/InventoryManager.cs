@@ -504,6 +504,7 @@ public class InventoryManager : MonoBehaviour
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                         Debug.Log("Can Use cup");
+                        player.planter = true;
                         ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
                         return true;
                     }
@@ -547,6 +548,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
+                    player.planter = true;
                     ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
                     return true;
                 }
