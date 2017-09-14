@@ -7,6 +7,8 @@ public class GenderSelectionPanel : MonoBehaviour {
   public delegate void ValueChangeEvent(Toggle newActive);
   public event ValueChangeEvent onValueChange;
 
+  [SerializeField]
+  private GameObject panel;
   private ToggleGroup toggleGroup;
 
   private void Awake() {
@@ -43,5 +45,6 @@ public class GenderSelectionPanel : MonoBehaviour {
     if (player == null) return;
     player.gender = (int)GameSettingManager.Instance.Gender;
     player.SetGender();
+    panel.SetActive(false);
   }
 }
