@@ -18,7 +18,8 @@ public class DialogWindow : MonoBehaviour {
     image = GetComponent<Image>();
   }
 
-  public void BreakWindow() {
+  public void BreakWindow(string str) {
+    if (str != "DoorOpens") return;
     image.sprite = brokenSprite;
   }
 
