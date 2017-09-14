@@ -56,6 +56,8 @@ public class InventoryManager : MonoBehaviour
     private int awakeTimer;
     private int garbageTimer;
 
+    private bool flyingMug;
+
     [SerializeField]
     private DialogWindow dialogWindow;
 
@@ -112,11 +114,21 @@ public class InventoryManager : MonoBehaviour
 
         awakeTimer = 30;
         garbageTimer = 60;
+        flyingMug = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(flyingMug == true)
+        {
+            GameObject.Find("SlotMug").transform.Translate(new Vector3(11, -10, 0));
+            if(GameObject.Find("SlotMug").transform.position.x > 380 && GameObject.Find("SlotMug").transform.position.y < 50)
+            {
+                flyingMug = false;
+            }
+        }
+
         if(garbageTimer < 0)
         {
             garbageTimer = 60;
@@ -126,7 +138,6 @@ public class InventoryManager : MonoBehaviour
         {
             garbageTimer--;
         }
-
 
         if (plantTriggered == false)
         {
@@ -548,6 +559,9 @@ public class InventoryManager : MonoBehaviour
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
                     ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
+                    GameObject.Find("SlotMug").transform.position = GameObject.Find("Player").transform.position + new Vector3(55, 60, 0);
+                    GameObject.Find("SlotMug").transform.localScale = new Vector3(0.5f, 0.5f, 1);
+                    flyingMug = true;
                     return true;
                 }
                 // Cup
