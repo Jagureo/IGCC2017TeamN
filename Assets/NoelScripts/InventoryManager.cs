@@ -285,7 +285,7 @@ public class InventoryManager : MonoBehaviour
         {
             //addItem(Random.Range(1, 3));
             //openWardrobeMenu();
-            ShareToFacebook("www.google.com", "Testing Post", "CaptionPost", "Description", "www.google.com", "http://www.facebook.com/");
+            ShareToFacebook("https://i.imgur.com/n3tEE8F.png", "Testing Post", "CaptionPost", "Description", "www.google.com", "http://www.facebook.com/");
             triggerPlayerQuestionMark();
         }
 #else
@@ -327,7 +327,7 @@ public class InventoryManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            ShareToFacebook("www.google.com", "Testing Post", "CaptionPost", "Description", "www.google.com", "http://www.facebook.com/");
+            ShareToFacebook("https://i.imgur.com/n3tEE8F.png", "Testing Post", "CaptionPost", "Description", "www.google.com", "http://www.facebook.com/");
         }
 #endif
 
@@ -490,8 +490,6 @@ public class InventoryManager : MonoBehaviour
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                         Debug.Log("Can Use pillow");
-                        var player = FindObjectOfType<PlayerController>();
-                        player.pc = true;
                         ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
                         return true;
                     }
@@ -532,9 +530,6 @@ public class InventoryManager : MonoBehaviour
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                     Debug.Log("Can Use pillow");
-                    var player = FindObjectOfType<PlayerController>();
-                    player.pc = true;
-
                     ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
                     return true;
                 }
