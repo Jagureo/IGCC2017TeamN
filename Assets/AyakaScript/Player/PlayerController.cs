@@ -98,12 +98,15 @@ public class PlayerController : MonoBehaviour
     public bool collisionFlug = false;
     string tagName = null;
 
+    public bool pc;
+
     //性別をセレクトされたかどうか
     bool genderSelectFlug = false;
 
     // Use this for initialization
     void Start()
     {
+        pc = false;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
         //フラグはfalse
@@ -174,7 +177,7 @@ public class PlayerController : MonoBehaviour
             SidetableChangeSprite();
         }
         //机
-        if (deskGet)
+        if (pc)
         {
             DeskChangeSprite();
         }
@@ -252,10 +255,13 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 ProgressionManager.Instance.ChangeProgression("PlayerPicksUpMug");
                                 break;
-                            case "desk":
-                                deskGet = true;
-                                //DeskSpriteRenderer.sprite = DeskPut;
-                                break;
+                            //case "desk":
+                            //    if (pc)
+                            //    {
+                            //        deskGet = true;
+                            //        //DeskSpriteRenderer.sprite = DeskPut;
+                            //    }
+                            //    break;
                             case "chest":
                                 //ChestSpriteRenderer.sprite = ChestPut;
                                 chestGet = true;
@@ -314,10 +320,10 @@ public class PlayerController : MonoBehaviour
                                 GameObject.Find("area").GetComponent<InventoryManager>().checkAdd(3);
                                 ProgressionManager.Instance.ChangeProgression("PlayerPicksUpMug");
                                 break;
-                            case "desk":
-                                deskGet = true;
-                                //DeskSpriteRenderer.sprite = DeskPutLady;
-                                break;
+                            //case "desk":
+                            //    deskGet = true;
+                            //    //DeskSpriteRenderer.sprite = DeskPutLady;
+                            //    break;
                             case "chest":
                                 //ChestSpriteRenderer.sprite = ChestPutLady;
                                 chestGet = true;
@@ -649,4 +655,5 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
 }
