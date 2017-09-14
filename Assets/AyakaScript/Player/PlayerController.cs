@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
     public bool collisionFlug = false;
     string tagName = null;
 
+    //性別をセレクトされたかどうか
+    bool genderSelectFlug = false;
 
     // Use this for initialization
     void Start()
@@ -116,87 +118,87 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        //性別切り替え（0が男性、1が女性）
-        //SetGender();
-        anim.SetInteger("gender", gender);
-        //画像を性別に合わせる
-        SpriteGender();
-
-
-        //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
-        anim.SetBool("run 0", right);
-        anim.SetBool("run 1", left);
-        anim.SetBool("run 2", up);
-        anim.SetBool("run 3", down);
-
-        //左クリックしたら、そっちの方向に移動 
-        if (Input.GetMouseButton(0))
+        ////性別切り替え（0が男性、1が女性）
+        //anim.SetInteger("gender", gender);
+        ////画像を性別に合わせる
+        //SpriteGender();
+        if (genderSelectFlug)
         {
-            if (!collisionFlug)
+            //歩くアニメーション(rightフラグがtrueなら動く、falseなら動かない)
+            anim.SetBool("run 0", right);
+            anim.SetBool("run 1", left);
+            anim.SetBool("run 2", up);
+            anim.SetBool("run 3", down);
+
+            //左クリックしたら、そっちの方向に移動 
+            if (Input.GetMouseButton(0))
             {
-                ////移動開始
-                //right = true;
-                //クリックした位置を目標位置に設定
-                targetPos = Input.mousePosition;
+                if (!collisionFlug)
+                {
+                    ////移動開始
+                    //right = true;
+                    //クリックした位置を目標位置に設定
+                    targetPos = Input.mousePosition;
 
-                //ワールド座標に変換
-                worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
-                worldMousePos.z = 10f;
+                    //ワールド座標に変換
+                    worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
+                    worldMousePos.z = 10f;
 
-                // 自分とターゲットとなる相手との方向を求める
-                Vector3 direction = (this.transform.position - worldMousePos).normalized;
-                MoveAngle(direction);
+                    // 自分とターゲットとなる相手との方向を求める
+                    Vector3 direction = (this.transform.position - worldMousePos).normalized;
+                    MoveAngle(direction);
 
-                //動く
-                iTween.MoveTo(this.gameObject, iTween.Hash(
-                    "position", worldMousePos,
-                    "time", 0.5f,
-                    "oncomplete", "OnCompleteCallback",
-                    "oncompletetarget", this.gameObject,
-                    "easeType", "linear"));
+                    //動く
+                    iTween.MoveTo(this.gameObject, iTween.Hash(
+                        "position", worldMousePos,
+                        "time", 0.5f,
+                        "oncomplete", "OnCompleteCallback",
+                        "oncompletetarget", this.gameObject,
+                        "easeType", "linear"));
+                }
             }
-        }
 
-        //------------------------------------------------------------------//
-        //画像切り替え用
-        //------------------------------------------------------------------//
+            //------------------------------------------------------------------//
+            //画像切り替え用
+            //------------------------------------------------------------------//
 
-        //ベッド
-        if(bedGet)
-        {
-            BedChangeSprite();
-        }
-        //サイドテーブル
-        if(sidetableGet)
-        {
-            SidetableChangeSprite();
-        }
-        //机
-        if(deskGet)
-        {
-            DeskChangeSprite();
-        }
+            //ベッド
+            if (bedGet)
+            {
+                BedChangeSprite();
+            }
+            //サイドテーブル
+            if (sidetableGet)
+            {
+                SidetableChangeSprite();
+            }
+            //机
+            if (deskGet)
+            {
+                DeskChangeSprite();
+            }
 
-        //棚のアニメーション
-        if (chestGet)
-        {
-            ChestChangeSprite();
-        }
-        //ツールボックスのアニメーション
-        if (toolboxGet)
-        {
-            ToolboxChangeSprite();
-        }
-        //ドア
-        if(doorGet)
-        {
-            DoorChangeSprite();
-        }
+            //棚のアニメーション
+            if (chestGet)
+            {
+                ChestChangeSprite();
+            }
+            //ツールボックスのアニメーション
+            if (toolboxGet)
+            {
+                ToolboxChangeSprite();
+            }
+            //ドア
+            if (doorGet)
+            {
+                DoorChangeSprite();
+            }
 
-        //壁処理（Mashf.Clamp(制限する座標値, 最小値, 最大値)
-        this.transform.position = (new Vector3(Mathf.Clamp(this.transform.position.x, wall_Left, wall_Right),
-           Mathf.Clamp(this.transform.position.y, wall_Bottom, wall_Top),
-           this.transform.position.z));
+            //壁処理（Mashf.Clamp(制限する座標値, 最小値, 最大値)
+            this.transform.position = (new Vector3(Mathf.Clamp(this.transform.position.x, wall_Left, wall_Right),
+               Mathf.Clamp(this.transform.position.y, wall_Bottom, wall_Top),
+               this.transform.position.z));
+        }
     }
 
     //動くのが終わった後に呼ばれる関数
@@ -380,6 +382,13 @@ public class PlayerController : MonoBehaviour
     public void SetGender()
     {
         anim.SetBool("genderSelect", true);
+        //性別切り替え（0が男性、1が女性）
+        anim.SetInteger("gender", gender);
+        //画像を性別に合わせる
+        SpriteGender();
+        //性別を設定したので、フラグをtrueにし、行動の制限を外す
+        genderSelectFlug = true;
+
     }
 
     //衝突、動くのが終わった後に呼ばれる関数
@@ -452,11 +461,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         return result;
-    }
-
-    void GenderInitilize()
-    {
-
     }
 
     void SpriteInitialize()
