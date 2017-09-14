@@ -471,6 +471,8 @@ public class InventoryManager : MonoBehaviour
     // Check if the item can be used
     bool checkUsable(int slot)
     {
+        var player = FindObjectOfType<PlayerController>();
+
         if (inventorySlot[slot] > 0 && playerChar != null)
         {
             switch (inventorySlot[slot])
@@ -481,6 +483,7 @@ public class InventoryManager : MonoBehaviour
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                         Debug.Log("Can Use toolbox");
+                        player.screen = true;
                         ProgressionManager.Instance.ChangeProgression("DoorOpens");
                         return true;
                     }
@@ -490,7 +493,6 @@ public class InventoryManager : MonoBehaviour
                     {
                         GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                         Debug.Log("Can Use pillow");
-                        var player = FindObjectOfType<PlayerController>();
                         player.pc = true;
                         ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
                         return true;
@@ -514,6 +516,7 @@ public class InventoryManager : MonoBehaviour
 
     bool checkUsable(int slot, bool itemInsert)
     {
+        var player = FindObjectOfType<PlayerController>();
 
         switch (slot)
         {
@@ -523,6 +526,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("ErrorSound1");
                     Debug.Log("Can Use toolbox");
+                    player.screen = true;
                     ProgressionManager.Instance.ChangeProgression("DoorOpens");
                     return true;
                 }
@@ -532,7 +536,6 @@ public class InventoryManager : MonoBehaviour
                 {
                     GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("BushesSound2");
                     Debug.Log("Can Use pillow");
-                    var player = FindObjectOfType<PlayerController>();
                     player.pc = true;
                     ProgressionManager.Instance.ChangeProgression("WebcamIsDisabled");
                     return true;

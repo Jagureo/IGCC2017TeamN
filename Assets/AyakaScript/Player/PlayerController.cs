@@ -11,7 +11,11 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer ChestSpriteRenderer;
     SpriteRenderer ToolboxSpriteRenderer;
     SpriteRenderer DoorSpriteRenderer;
+    SpriteRenderer ChairSpriteRenderer;
 
+    SpriteRenderer ScreenSpriteRenderer;
+
+    public Sprite ScreenPut;
     public Sprite BedPut;
     public Sprite SidetablePut;
     public Sprite DeskPut;
@@ -28,6 +32,8 @@ public class PlayerController : MonoBehaviour
     public Sprite ChestBoy;
     public Sprite ToolboxBoy;
     public Sprite DoorBoy;
+    public Sprite ChairBoy;
+
 
     public Sprite FloorLady;
     public Sprite BedLady;
@@ -36,6 +42,8 @@ public class PlayerController : MonoBehaviour
     public Sprite ChestLady;
     public Sprite ToolboxLady;
     public Sprite DoorLady;
+    public Sprite ChairLady;
+
 
     public Sprite BedPutLady;
     public Sprite SidetablePutLady;
@@ -54,6 +62,9 @@ public class PlayerController : MonoBehaviour
     GameObject[] chests;
     GameObject[] toolboxs;
     GameObject[] doors;
+    GameObject[] screens;
+    GameObject[] chairs;
+
 
     //それぞれ、物を取得したかどうかの確認フラグ
     bool bedGet = false;
@@ -98,6 +109,7 @@ public class PlayerController : MonoBehaviour
     string tagName = null;
 
     public bool pc;
+    public bool screen;
 
     //性別をセレクトされたかどうか
     bool genderSelectFlug = false;
@@ -106,6 +118,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         pc = false;
+        screen = false;
         //Animatorをキャッシュ
         anim = GetComponent<Animator>();
         //フラグはfalse
@@ -143,26 +156,26 @@ public class PlayerController : MonoBehaviour
 
                         //if (!collisionFlug)
                         //{
-                            ////移動開始
-                            //right = true;
-                            //クリックした位置を目標位置に設定
-                            targetPos = Input.mousePosition;
+                        ////移動開始
+                        //right = true;
+                        //クリックした位置を目標位置に設定
+                        targetPos = Input.mousePosition;
 
-                            //ワールド座標に変換
-                            worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
-                            worldMousePos.z = 10f;
+                        //ワールド座標に変換
+                        worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
+                        worldMousePos.z = 10f;
 
-                            // 自分とターゲットとなる相手との方向を求める
-                            Vector3 direction = (this.transform.position - worldMousePos).normalized;
-                            MoveAngle(direction);
+                        // 自分とターゲットとなる相手との方向を求める
+                        Vector3 direction = (this.transform.position - worldMousePos).normalized;
+                        MoveAngle(direction);
 
-                            //動く
-                            iTween.MoveTo(this.gameObject, iTween.Hash(
-                                "position", worldMousePos,
-                                "time", 0.5f,
-                                "oncomplete", "OnCompleteCallback",
-                                "oncompletetarget", this.gameObject,
-                                "easeType", "linear"));
+                        //動く
+                        iTween.MoveTo(this.gameObject, iTween.Hash(
+                            "position", worldMousePos,
+                            "time", 0.5f,
+                            "oncomplete", "OnCompleteCallback",
+                            "oncompletetarget", this.gameObject,
+                            "easeType", "linear"));
                         //}
                     }
                 }
@@ -187,6 +200,11 @@ public class PlayerController : MonoBehaviour
         if (pc)
         {
             DeskChangeSprite();
+        }
+        //スクリーン
+        if(screen)
+        {
+            ScreenChangeSprite();
         }
 
         //棚のアニメーション
@@ -500,6 +518,8 @@ public class PlayerController : MonoBehaviour
         chests = GameObject.FindGameObjectsWithTag("chest");
         toolboxs = GameObject.FindGameObjectsWithTag("toolbox");
         doors = GameObject.FindGameObjectsWithTag("door");
+        screens = GameObject.FindGameObjectsWithTag("screen");
+        chairs = GameObject.FindGameObjectsWithTag("chair");
 
         // このobjectのSpriteRendererを取得
         FloorSpriteRenderer = floors[0].GetComponent<SpriteRenderer>();
@@ -509,6 +529,9 @@ public class PlayerController : MonoBehaviour
         ChestSpriteRenderer = chests[0].GetComponent<SpriteRenderer>();
         ToolboxSpriteRenderer = toolboxs[0].GetComponent<SpriteRenderer>();
         DoorSpriteRenderer = doors[0].GetComponent<SpriteRenderer>();
+        ScreenSpriteRenderer = screens[0].GetComponent<SpriteRenderer>();
+        ChairSpriteRenderer = chairs[0].GetComponent<SpriteRenderer>();
+
 
     }
 
@@ -527,6 +550,7 @@ public class PlayerController : MonoBehaviour
                 ChestSpriteRenderer.sprite = ChestBoy;
                 ToolboxSpriteRenderer.sprite = ToolboxBoy;
                 DoorSpriteRenderer.sprite = DoorBoy;
+                ChairSpriteRenderer.sprite = ChairBoy;
                 break;
 
             //Girl
@@ -538,6 +562,7 @@ public class PlayerController : MonoBehaviour
                 ChestSpriteRenderer.sprite = ChestLady;
                 ToolboxSpriteRenderer.sprite = ToolboxLady;
                 DoorSpriteRenderer.sprite = DoorLady;
+                ChairSpriteRenderer.sprite = ChairLady;
 
                 break;
         }
@@ -586,6 +611,12 @@ public class PlayerController : MonoBehaviour
             DeskSpriteRenderer.sprite = DeskPutLady;
         }
     }
+
+    void ScreenChangeSprite()
+    {
+        ScreenSpriteRenderer.sprite = ScreenPut;
+    }
+
 
     //箪笥のアニメーション
     void ChestChangeSprite()

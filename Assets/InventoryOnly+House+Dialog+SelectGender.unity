@@ -2941,7 +2941,7 @@ GameObject:
   - 50: {fileID: 1250594856}
   m_Layer: 8
   m_Name: screen1
-  m_TagString: Untagged
+  m_TagString: screen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2983,7 +2983,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250594852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1137897, y: -3.1480374, z: 0}
+  m_LocalPosition: {x: 1.1137897, y: -3.1480374, z: -0.1}
   m_LocalScale: {x: 0.8599912, y: 1.2958083, z: 1}
   m_Children: []
   m_Father: {fileID: 1281874528}
@@ -4449,7 +4449,7 @@ GameObject:
   - 212: {fileID: 1636559637}
   m_Layer: 8
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: chair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4908,6 +4908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e2fd0c1821810469ac21b6b9620278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScreenPut: {fileID: 21300000, guid: 3f76700b48dcf3345bbe4e41051cda88, type: 3}
   BedPut: {fileID: 21300000, guid: a69cb6ed903dac540909806ee1c54366, type: 3}
   SidetablePut: {fileID: 21300000, guid: 855f1ff4366ca7a408b161ff6eee1715, type: 3}
   DeskPut: {fileID: 21300000, guid: 678754d2597c5b04498cab99616f9073, type: 3}
@@ -4923,6 +4924,7 @@ MonoBehaviour:
   ChestBoy: {fileID: 21300000, guid: 26c8ec1f197515c428cd3c265b1616b9, type: 3}
   ToolboxBoy: {fileID: 21300000, guid: ef50863797b8edd4ea2e31bcdc8b7f34, type: 3}
   DoorBoy: {fileID: 21300000, guid: b6a0ff24b37d37d4dbb30822305a0e84, type: 3}
+  ChairBoy: {fileID: 21300000, guid: 9a22227a5a822114db6432b01665793a, type: 3}
   FloorLady: {fileID: 21300000, guid: 83554140433097c42b356d65edc17bab, type: 3}
   BedLady: {fileID: 21300000, guid: 34dd492d1e4c3bc43bae9616d78165b6, type: 3}
   SidetableLady: {fileID: 21300000, guid: 9286c03b8c71e59479dcf43905d43c23, type: 3}
@@ -4930,6 +4932,7 @@ MonoBehaviour:
   ChestLady: {fileID: 21300000, guid: dce13a7645fb2e04d9366a4ca80c3f19, type: 3}
   ToolboxLady: {fileID: 21300000, guid: a678d58782632a340b1a6bbc103d7f45, type: 3}
   DoorLady: {fileID: 21300000, guid: 4595610da2918b44aa11e3dc90ee949c, type: 3}
+  ChairLady: {fileID: 21300000, guid: 9c5d4de8ec280424b87cce381b59dbf0, type: 3}
   BedPutLady: {fileID: 21300000, guid: 613b6ee3a1e2507409b679b81b5407c2, type: 3}
   SidetablePutLady: {fileID: 21300000, guid: 8356f897fdd0cf14e9207431ea941d47, type: 3}
   DeskPutLady: {fileID: 21300000, guid: 264f8bc8b50c6f24eb413cc3047837c5, type: 3}
@@ -4950,6 +4953,7 @@ MonoBehaviour:
   down: 0
   collisionFlug: 0
   pc: 0
+  screen: 0
 --- !u!95 &1817515198
 Animator:
   serializedVersion: 3

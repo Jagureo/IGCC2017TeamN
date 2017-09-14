@@ -11,6 +11,8 @@ TagManager:
   - chest
   - door
   - floor
+  - screen
+  - chair
   layers:
   - Default
   - TransparentFX
