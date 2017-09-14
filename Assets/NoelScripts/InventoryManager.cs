@@ -133,6 +133,11 @@ public class InventoryManager : MonoBehaviour
             //}
             if (Vector3.Distance(GameObject.Find("SlotMug").transform.position, cam.WorldToScreenPoint(GameObject.Find("planter").transform.position)) < 30)
             {
+                var player = FindObjectOfType<PlayerController>();
+
+                player.planter = true;
+                GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
+                ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
                 flyingMug = false;
                 GameObject.Find("SlotMug").GetComponent<Image>().sprite = brokenMug;
                 GameObject.Find("planter").GetComponent<SpriteRenderer>().sprite = brokenPlant;
@@ -567,10 +572,7 @@ public class InventoryManager : MonoBehaviour
             case 3:
                 if (playerChar.transform.position.y > 210 && playerChar.transform.position.x < 230 && gotPillow == true && searchInventory(2) == false)
                 {
-                    GameObject.Find("PersistentSoundManager").GetComponent<soundPlayer>().PlaySoundEffect("MugPlace");
                     Debug.Log("Can Use cup");
-                    player.planter = true;
-                    ProgressionManager.Instance.ChangeProgression("ThrowsMugAtPlant");
                     GameObject.Find("SlotMug").transform.position = cam.WorldToScreenPoint(GameObject.Find("Player").transform.position);
                     GameObject.Find("SlotMug").transform.localScale = new Vector3(0.5f, 0.5f, 1);
                     flyingMug = true;
