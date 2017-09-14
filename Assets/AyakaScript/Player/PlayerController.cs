@@ -58,7 +58,6 @@ public class PlayerController : MonoBehaviour
     //それぞれ、物を取得したかどうかの確認フラグ
     bool bedGet = false;
     bool sidetableGet = false;
-    bool deskGet = false;
     bool chestGet = false;
     bool toolboxGet = false;
     bool doorGet = false;
@@ -136,28 +135,36 @@ public class PlayerController : MonoBehaviour
             //左クリックしたら、そっちの方向に移動 
             if (Input.GetMouseButton(0))
             {
-                if (!collisionFlug)
+                GameObject obj = getrightObject();
+                if (obj != null)
                 {
-                    ////移動開始
-                    //right = true;
-                    //クリックした位置を目標位置に設定
-                    targetPos = Input.mousePosition;
+                    if (obj.layer == 8)
+                    {
 
-                    //ワールド座標に変換
-                    worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
-                    worldMousePos.z = 10f;
+                        //if (!collisionFlug)
+                        //{
+                            ////移動開始
+                            //right = true;
+                            //クリックした位置を目標位置に設定
+                            targetPos = Input.mousePosition;
 
-                    // 自分とターゲットとなる相手との方向を求める
-                    Vector3 direction = (this.transform.position - worldMousePos).normalized;
-                    MoveAngle(direction);
+                            //ワールド座標に変換
+                            worldMousePos = Camera.main.ScreenToWorldPoint(targetPos);
+                            worldMousePos.z = 10f;
 
-                    //動く
-                    iTween.MoveTo(this.gameObject, iTween.Hash(
-                        "position", worldMousePos,
-                        "time", 0.5f,
-                        "oncomplete", "OnCompleteCallback",
-                        "oncompletetarget", this.gameObject,
-                        "easeType", "linear"));
+                            // 自分とターゲットとなる相手との方向を求める
+                            Vector3 direction = (this.transform.position - worldMousePos).normalized;
+                            MoveAngle(direction);
+
+                            //動く
+                            iTween.MoveTo(this.gameObject, iTween.Hash(
+                                "position", worldMousePos,
+                                "time", 0.5f,
+                                "oncomplete", "OnCompleteCallback",
+                                "oncompletetarget", this.gameObject,
+                                "easeType", "linear"));
+                        //}
+                    }
                 }
             }
         }
